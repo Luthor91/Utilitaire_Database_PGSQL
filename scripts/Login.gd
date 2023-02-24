@@ -69,7 +69,7 @@ func _connected():
 	Globals.HOST = HOST;
 	Globals.DATABASE = DATABASE;
 	Globals.PORT = PORT;
-	
+	Globals.isConn = true;
 	Globals.rwFile("postgresql://%s:%s@%s:%d/%s" 
 		% [USER, PASSWORD, HOST, PORT, DATABASE], "Databases.txt");
 	database.close();

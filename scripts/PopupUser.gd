@@ -17,6 +17,8 @@ func _ready():
 
 func _item_selected(id: int):
 	var _dump;
+	if Globals.isConn == false:
+		return;
 	match id:
 		Options.USER_MANAGEMENT:
 			_dump = get_tree().change_scene("res://scene/GestionUtilisateur.tscn");

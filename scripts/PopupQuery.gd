@@ -16,6 +16,8 @@ func _ready():
 	popup.connect("id_pressed", self, "_item_selected")
 
 func _item_selected(id: int):
+	if Globals.isConn == false:
+		return;
 	var _dump;
 	match id:
 		Options.QUERY_WRITTEN:

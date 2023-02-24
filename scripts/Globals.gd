@@ -6,6 +6,7 @@ var HOST = "";
 var DATABASE = "";
 var PORT = 0;
 var SIZE = 0;
+var isConn = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

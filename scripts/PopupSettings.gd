@@ -23,6 +23,10 @@ func _item_selected(id: int):
 		Options.LOGIN:
 			_dump = get_tree().change_scene("res://scene/Login.tscn");
 		Options.SETTINGS:
+			if Globals.isConn == false:
+				return;
 			_dump = get_tree().change_scene("res://scene/Options.tscn");
 		Options.INFOS:
+			if Globals.isConn == false:
+				return;
 			_dump = get_tree().change_scene("res://scene/Information.tscn");
