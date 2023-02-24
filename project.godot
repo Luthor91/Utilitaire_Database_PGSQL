@@ -1,0 +1,291 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ArgumentParser",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/ArgumentParser.gd"
+}, {
+"base": "PackedArrayPropertyEditor",
+"class": "ArrayPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/array_property_editor.gd"
+}, {
+"base": "Resource",
+"class": "AverageDictionaryEnjoyer",
+"language": "GDScript",
+"path": "res://average_dictionary_enjoyer.gd"
+}, {
+"base": "VBoxContainer",
+"class": "BaseCollectionPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/base_property_editor.gd"
+}, {
+"base": "Reference",
+"class": "CSSParser",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/CSSParser.gd"
+}, {
+"base": "Reference",
+"class": "CSSSimplifier",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/CSSSimplifier.gd"
+}, {
+"base": "Button",
+"class": "CollectionHeaderButton",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/collection_header_button.gd"
+}, {
+"base": "HBoxContainer",
+"class": "ContributorClass",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/ContributorClass.gd"
+}, {
+"base": "Node",
+"class": "Controller",
+"language": "GDScript",
+"path": "res://Database/Controllers/BaseController.gd"
+}, {
+"base": "EditorResourcePicker",
+"class": "CustomResourcePicker",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/custom_resource_picker.gd"
+}, {
+"base": "PopupDialog",
+"class": "DialogueBox",
+"language": "GDScript",
+"path": "res://addons/dialogue_nodes/objects/dialogueBox.gd"
+}, {
+"base": "PackedArrayPropertyEditor",
+"class": "DictPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/dict_property_editor.gd"
+}, {
+"base": "EditorInspectorPlugin",
+"class": "DictionaryInspectorPlugin",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/inspector_plugin.gd"
+}, {
+"base": "EditorProperty",
+"class": "DictionaryInspectorProperty",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/inspector_property.gd"
+}, {
+"base": "Button",
+"class": "EditorArrayIndex",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/array_index.gd"
+}, {
+"base": "PanelContainer",
+"class": "GistItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/GistItem.gd"
+}, {
+"base": "HBoxContainer",
+"class": "InvitationItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/InvitationItem.gd"
+}, {
+"base": "Reference",
+"class": "JSONBeautifier",
+"language": "GDScript",
+"path": "res://addons/json_beautifier/json_beautifier.gd"
+}, {
+"base": "BaseCollectionPropertyEditor",
+"class": "ObjectPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/object_property_editor.gd"
+}, {
+"base": "Reference",
+"class": "OptParse",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/optparse.gd"
+}, {
+"base": "Reference",
+"class": "Options",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/Options.gd"
+}, {
+"base": "BaseCollectionPropertyEditor",
+"class": "PackedArrayPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/packed_array_property_editor.gd"
+}, {
+"base": "Object",
+"class": "PostgreSQLClient",
+"language": "GDScript",
+"path": "res://scripts/PostgreSQLClient.gd"
+}, {
+"base": "PanelContainer",
+"class": "RepositoryItem",
+"language": "GDScript",
+"path": "res://addons/github-integration/scripts/RepositoryItem.gd"
+}, {
+"base": "RichTextEffect",
+"class": "RichTextWait",
+"language": "GDScript",
+"path": "res://addons/dialogue_nodes/objects/bbcodeWait.gd"
+}, {
+"base": "Reference",
+"class": "Stylesheet",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/Stylesheet.gd"
+}, {
+"base": "GridContainer",
+"class": "TensorPropertyEditor",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/tensor_property_editor.gd"
+}, {
+"base": "Reference",
+"class": "ThemeApplier",
+"language": "GDScript",
+"path": "res://addons/godot-css-theme/ThemeApplier.gd"
+}, {
+"base": "Button",
+"class": "ThemeIconButton",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/editor_icon_button.gd"
+}, {
+"base": "OptionButton",
+"class": "TypeOptionButton",
+"language": "GDScript",
+"path": "res://addons/dictionary_inspector/elements/type_option_button.gd"
+} ]
+_global_script_class_icons={
+"ArgumentParser": "",
+"ArrayPropertyEditor": "",
+"AverageDictionaryEnjoyer": "",
+"BaseCollectionPropertyEditor": "",
+"CSSParser": "",
+"CSSSimplifier": "",
+"CollectionHeaderButton": "",
+"ContributorClass": "",
+"Controller": "",
+"CustomResourcePicker": "",
+"DialogueBox": "",
+"DictPropertyEditor": "",
+"DictionaryInspectorPlugin": "",
+"DictionaryInspectorProperty": "",
+"EditorArrayIndex": "",
+"GistItem": "",
+"InvitationItem": "",
+"JSONBeautifier": "",
+"ObjectPropertyEditor": "",
+"OptParse": "",
+"Options": "",
+"PackedArrayPropertyEditor": "",
+"PostgreSQLClient": "",
+"RepositoryItem": "",
+"RichTextWait": "",
+"Stylesheet": "",
+"TensorPropertyEditor": "",
+"ThemeApplier": "",
+"ThemeIconButton": "",
+"TypeOptionButton": ""
+}
+
+[application]
+
+config/name="Utilitaire_DatabasePGSQL"
+run/main_scene="res://scene/Login.tscn"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
+config/icon="res://addons/godot-pgsql/icon.png"
+
+[autoload]
+
+Globals="*res://scene/Globals.tscn"
+Console="*res://addons/quentincaffeino/console/src/Console.tscn"
+PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
+IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
+UserData="*res://addons/github-integration/scripts/user_data.gd"
+RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg", "res://addons/quentincaffeino/console/plugin.cfg" )
+
+[global]
+
+TCP=false
+tcp=false
+self=false
+self-contained=true
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+ui_popupUser={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":85,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_popupSettings={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":79,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_popupQuery={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_popupDatabase={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":0,"physical_scancode":71,"unicode":0,"echo":false,"script":null)
+ ]
+}
+quentincaffeino_console_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":39,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+quentincaffeino_console_autocomplete={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+quentincaffeino_console_history_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+quentincaffeino_console_history_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+"quentincaffeino_console_toggle "={
+"deadzone": 0.5,
+"events": [  ]
+}
+
+[logging]
+
+file_logging/enable_file_logging=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

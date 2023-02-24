@@ -1,0 +1,335 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Options.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="Options" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+rect_clip_content = true
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = 1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+margin_left = 0.639954
+margin_top = -0.28
+margin_right = 1.00995
+margin_bottom = -0.306
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel"]
+anchor_left = 0.056
+anchor_top = 0.097
+anchor_right = 0.5
+anchor_bottom = 0.206
+margin_left = 0.439999
+margin_top = 0.157997
+margin_bottom = 0.283989
+text = "Options :"
+align = 1
+valign = 1
+
+[node name="Inputs" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.193
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = -0.00999999
+margin_top = -0.0979996
+margin_bottom = 0.171997
+
+[node name="ButtonDefaultAccount" type="Button" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.111
+anchor_top = 0.017
+anchor_right = 0.369
+anchor_bottom = 0.059
+margin_left = 0.0559959
+margin_top = -0.0240002
+margin_right = 0.0239868
+margin_bottom = 0.151999
+text = "Compte par défaut"
+
+[node name="ButtonColorText" type="Button" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.413
+anchor_top = 0.017
+anchor_right = 0.671
+anchor_bottom = 0.059
+margin_left = -0.152008
+margin_top = -0.0240002
+margin_right = -0.18399
+margin_bottom = 0.151999
+text = "Couleur Texte"
+
+[node name="ButtonColorPanel" type="Button" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.714
+anchor_top = 0.017
+anchor_right = 0.972
+anchor_bottom = 0.059
+margin_left = 0.143982
+margin_top = -0.0240002
+margin_right = 0.111969
+margin_bottom = 0.151999
+text = "Couleur Panel"
+
+[node name="ButtonWindowSize" type="Button" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.111
+anchor_top = 0.085
+anchor_right = 0.365
+anchor_bottom = 0.127
+margin_left = 0.0559959
+margin_top = -0.119999
+margin_right = 0.0399933
+margin_bottom = 0.0559998
+text = "Taille Fenêtre"
+
+[node name="WindowSize" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+visible = false
+anchor_left = 0.111
+anchor_top = 0.288
+anchor_right = 0.746
+anchor_bottom = 0.695
+margin_left = 0.0559959
+margin_top = 0.0639954
+margin_right = 0.0159607
+margin_bottom = -0.0400391
+
+[node name="ButtonSize1" type="Button" parent="PanelContainer/MainPanel/Inputs/WindowSize"]
+anchor_right = 0.284
+anchor_bottom = 0.104
+margin_right = -78.88
+margin_bottom = 0.0319996
+text = "1920 x 1080"
+
+[node name="ButtonSize2" type="Button" parent="PanelContainer/MainPanel/Inputs/WindowSize"]
+anchor_top = 0.167
+anchor_right = 0.284
+anchor_bottom = 0.271
+margin_top = -0.064003
+margin_right = 0.119995
+margin_bottom = -0.0320053
+text = "1024 x 768"
+
+[node name="ButtonSize3" type="Button" parent="PanelContainer/MainPanel/Inputs/WindowSize"]
+anchor_top = 0.333
+anchor_right = 0.284
+anchor_bottom = 0.417
+margin_top = 0.0639992
+margin_right = 0.119995
+margin_bottom = 3.936
+text = "1024 x 600"
+
+[node name="ButtonSize4" type="Button" parent="PanelContainer/MainPanel/Inputs/WindowSize"]
+anchor_top = 0.5
+anchor_right = 0.284
+anchor_bottom = 0.604
+margin_right = 0.119995
+margin_bottom = 0.0319977
+text = "900 x 528"
+
+[node name="DefaultAccount" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+visible = false
+anchor_left = 0.111
+anchor_top = 0.288
+anchor_right = 0.73
+anchor_bottom = 0.831
+margin_left = 0.0559998
+margin_top = 0.0639954
+margin_right = 0.0799866
+margin_bottom = -0.232056
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+anchor_right = 0.564
+anchor_bottom = 0.071
+margin_right = 0.0319977
+margin_bottom = 0.191999
+text = "Définir compte par défaut : "
+align = 1
+valign = 1
+
+[node name="DatabaseName" type="Panel" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+anchor_top = 0.125
+anchor_right = 1.0
+anchor_bottom = 0.25
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/DatabaseName"]
+anchor_right = 0.385
+anchor_bottom = 1.0
+margin_right = -0.120003
+text = "Base de donnée :"
+align = 1
+valign = 1
+
+[node name="Input" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/DatabaseName"]
+anchor_left = 0.385
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.120003
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="UserName" type="Panel" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+margin_top = 64.0
+margin_right = 312.0
+margin_bottom = 96.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/UserName"]
+anchor_right = 0.385
+anchor_bottom = 1.0
+margin_right = -0.120003
+text = "Utilisateur :"
+align = 1
+valign = 1
+
+[node name="Input" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/UserName"]
+anchor_left = 0.385
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.120003
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="Password" type="Panel" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+margin_top = 96.0
+margin_right = 312.0
+margin_bottom = 128.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Password"]
+anchor_right = 0.385
+anchor_bottom = 1.0
+margin_right = -0.120003
+text = "Mot de passe :"
+align = 1
+valign = 1
+
+[node name="Input" type="LineEdit" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Password"]
+anchor_left = 0.385
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.120003
+rect_pivot_offset = Vector2( 350, 103 )
+secret = true
+
+[node name="Server" type="Panel" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+margin_top = 128.0
+margin_right = 312.0
+margin_bottom = 160.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Server"]
+anchor_right = 0.385
+anchor_bottom = 1.0
+margin_right = -0.120003
+text = "Serveur :"
+align = 1
+valign = 1
+
+[node name="Input" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Server"]
+anchor_left = 0.385
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.120003
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="Port" type="Panel" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+margin_top = 160.0
+margin_right = 312.0
+margin_bottom = 192.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Port"]
+anchor_right = 0.385
+anchor_bottom = 1.0
+margin_right = -0.120003
+text = "Port :"
+align = 1
+valign = 1
+
+[node name="Input" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/DefaultAccount/Port"]
+anchor_left = 0.385
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.120003
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="Button" type="Button" parent="PanelContainer/MainPanel/Inputs/DefaultAccount"]
+anchor_left = 0.103
+anchor_top = 0.781
+anchor_right = 0.462
+anchor_bottom = 0.859
+margin_left = -0.136002
+margin_top = 0.0639954
+margin_right = -0.143997
+margin_bottom = 0.095993
+text = "Valider"
+
+[node name="Control" type="Control" parent="."]
+margin_left = 512.0
+margin_top = 64.0
+margin_right = 1017.0
+margin_bottom = 593.0
+
+[node name="ColorPanel" type="Panel" parent="Control"]
+visible = false
+anchor_left = 0.253
+anchor_top = 0.121
+anchor_right = 0.998
+anchor_bottom = 1.0
+margin_left = 0.234993
+margin_top = -0.00900269
+margin_right = 0.00997925
+margin_bottom = -1.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Control/ColorPanel"]
+anchor_top = 0.004
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 2.144
+margin_right = 4.0
+margin_bottom = 2.0
+
+[node name="ColorText" type="Panel" parent="Control"]
+visible = false
+anchor_left = 0.253
+anchor_top = 0.121
+anchor_right = 0.998
+anchor_bottom = 1.0
+margin_left = 0.234993
+margin_top = -0.00900269
+margin_right = 0.00997925
+margin_bottom = -1.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Control/ColorText"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 2.0
+
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonDefaultAccount" to="." method="_on_ButtonDefaultAccount_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorText" to="." method="_on_ButtonColorText_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorPanel" to="." method="_on_ButtonColorPanel_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonWindowSize" to="." method="_on_ButtonWindowSize_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize1" to="." method="_on_ButtonSize1_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize2" to="." method="_on_ButtonSize2_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize3" to="." method="_on_ButtonSize3_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize4" to="." method="_on_ButtonSize4_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/DefaultAccount/Button" to="." method="_on_Button_pressed"]

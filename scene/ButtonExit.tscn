@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/ButtonExit.gd" type="Script" id=1]
+
+[node name="ButtonExit" type="Button"]
+anchor_left = 0.936
+anchor_top = 0.002
+anchor_right = 0.999
+anchor_bottom = 0.043
+margin_left = -0.360046
+margin_top = -0.172
+margin_right = 0.00994873
+margin_bottom = -0.198
+text = "Quitter"
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_ButtonExit_pressed"]

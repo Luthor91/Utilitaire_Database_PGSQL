@@ -1,0 +1,299 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/Database.gd" type="Script" id=1]
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/goTo.gd" type="Script" id=5]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=6]
+
+[node name="Database" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 6 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 2 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = -1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+margin_left = -1.23206
+margin_top = -0.28
+margin_right = -0.862061
+margin_bottom = -0.306
+
+[node name="QueryPanel" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_top = 0.075
+anchor_right = 0.5
+anchor_bottom = 0.4
+margin_top = 0.0499992
+margin_bottom = -0.400009
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.176
+anchor_top = 0.026
+anchor_right = 0.786
+anchor_bottom = 0.195
+margin_left = 0.119995
+margin_top = 0.059999
+margin_right = 4.07001
+margin_bottom = -0.450104
+text = "Requête SQL libre :"
+align = 1
+valign = 1
+
+[node name="InputQuery" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.034
+anchor_top = 0.237
+anchor_right = 0.913
+anchor_bottom = 0.785
+margin_top = -0.0300026
+margin_right = 0.934998
+margin_bottom = -0.150009
+
+[node name="ButtonExecute" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.078
+anchor_top = 0.832
+anchor_right = 0.894
+anchor_bottom = 0.96
+margin_left = 120.61
+margin_top = 0.0524139
+margin_right = -132.47
+margin_bottom = 0.0604706
+rect_min_size = Vector2( 150, 30 )
+rect_clip_content = true
+mouse_default_cursor_shape = 2
+text = "Executer"
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+visible = false
+anchor_left = 0.701
+anchor_top = -1.846
+anchor_right = 0.935
+anchor_bottom = -1.308
+margin_left = -25.0049
+margin_top = 339.74
+margin_right = 32.8251
+margin_bottom = 285.52
+text = "Veuillez mettre les noms 
+de table entre guillemets
+(\"nomtable\")"
+align = 1
+clip_text = true
+
+[node name="ResultPanel" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.002
+anchor_top = 0.41
+anchor_right = 0.5
+anchor_bottom = 0.875
+margin_left = -0.02
+margin_top = -0.26001
+margin_right = 3.0
+margin_bottom = 0.249939
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/ResultPanel"]
+anchor_right = 1.0
+anchor_bottom = 0.172
+margin_left = 140.0
+margin_top = 8.0
+margin_right = -169.0
+margin_bottom = 0.0439987
+text = "Résultat : "
+align = 1
+valign = 1
+
+[node name="ResultQuery" type="TextEdit" parent="PanelContainer/MainPanel/ResultPanel"]
+anchor_top = 0.176
+anchor_right = 1.0
+anchor_bottom = 0.967
+margin_left = 22.0
+margin_top = -0.0480042
+margin_right = -16.0
+margin_bottom = 0.00897217
+readonly = true
+
+[node name="ButtonResultQuery" type="Button" parent="PanelContainer/MainPanel/ResultPanel"]
+anchor_left = 0.593
+anchor_right = 1.0
+anchor_bottom = 0.125
+margin_left = 43.942
+margin_top = 9.0
+margin_right = -65.0
+margin_bottom = -0.125
+mouse_default_cursor_shape = 2
+text = "Copy"
+
+[node name="TrueResultPanel" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_top = 0.903
+anchor_right = 0.983
+anchor_bottom = 0.986
+margin_left = 28.0
+margin_top = -1.15802
+margin_right = 0.169983
+margin_bottom = 0.203979
+
+[node name="TrueResultQuery" type="TextEdit" parent="PanelContainer/MainPanel/TrueResultPanel"]
+anchor_left = -0.003
+anchor_top = 0.34
+anchor_right = 0.561
+anchor_bottom = 1.0
+margin_left = -0.105
+margin_right = -0.36499
+readonly = true
+
+[node name="ButtonTrueResult" type="Button" parent="PanelContainer/MainPanel/TrueResultPanel"]
+anchor_left = 0.569
+anchor_top = 0.5
+anchor_right = 0.635
+anchor_bottom = 1.0
+margin_left = -0.0849609
+margin_right = 0.224976
+margin_bottom = -1.0
+mouse_default_cursor_shape = 2
+text = "Copy"
+
+[node name="Historic" type="Panel" parent="PanelContainer/MainPanel"]
+light_mask = 3
+anchor_left = 0.516
+anchor_top = 0.041
+anchor_right = 1.0
+anchor_bottom = 0.862
+margin_left = -0.159973
+margin_top = 8.974
+margin_right = -19.0
+margin_bottom = -0.131989
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Historic"]
+anchor_top = 0.037
+anchor_right = 1.0
+anchor_bottom = 0.092
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+text = "Historique : "
+align = 1
+valign = 1
+
+[node name="LastQuery" type="TextEdit" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.017
+anchor_top = 0.1
+anchor_right = 0.853
+anchor_bottom = 0.185
+margin_left = 0.00999832
+margin_top = 0.900002
+margin_right = 1.08997
+margin_bottom = 0.015007
+readonly = true
+
+[node name="ButtonQuery" type="Button" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.877
+anchor_top = 0.104
+anchor_right = 1.017
+anchor_bottom = 0.154
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+mouse_default_cursor_shape = 2
+text = "Copy"
+
+[node name="AllQuery" type="TextEdit" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.026
+anchor_top = 0.217
+anchor_right = 1.004
+anchor_bottom = 0.9
+margin_left = -0.220002
+margin_top = 0.623009
+margin_right = 0.119965
+margin_bottom = 0.100006
+rect_clip_content = true
+readonly = true
+highlight_current_line = true
+bookmark_gutter = true
+deselect_on_focus_loss_enabled = false
+wrap_enabled = true
+
+[node name="ButtonClear" type="Button" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.374
+anchor_top = 0.933
+anchor_right = 0.647
+anchor_bottom = 0.983
+margin_left = 0.220032
+margin_top = 0.22702
+margin_right = -0.0899963
+margin_bottom = 0.177002
+mouse_default_cursor_shape = 2
+text = "Clear"
+
+[node name="ButtonNext" type="Button" parent="PanelContainer/MainPanel/Historic"]
+visible = false
+anchor_left = 0.851
+anchor_top = 0.932
+anchor_right = 0.987
+anchor_bottom = 0.983
+margin_left = 0.0299988
+margin_top = 0.0959778
+margin_right = 0.109985
+margin_bottom = 0.0239868
+text = "Suivant"
+
+[node name="ButtonLast" type="Button" parent="PanelContainer/MainPanel/Historic"]
+visible = false
+anchor_left = 0.034
+anchor_top = 0.932
+anchor_right = 0.204
+anchor_bottom = 0.983
+margin_left = 0.0199995
+margin_top = 0.0959778
+margin_right = 0.119995
+margin_bottom = 0.0239868
+text = "Précédent"
+
+[node name="ButtonGoTo" type="Button" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.732
+anchor_top = 1.0
+anchor_right = 0.868
+anchor_bottom = 1.051
+margin_left = -0.0400391
+margin_right = 0.039978
+margin_bottom = -0.071991
+text = "Aller à :"
+
+[node name="goTo" type="TextEdit" parent="PanelContainer/MainPanel/Historic"]
+anchor_left = 0.902
+anchor_top = 1.0
+anchor_right = 1.021
+anchor_bottom = 1.051
+margin_left = 0.059967
+margin_right = 0.129974
+margin_bottom = -0.071991
+script = ExtResource( 5 )
+
+[connection signal="gui_input" from="PanelContainer/MainPanel/QueryPanel/Label" to="." method="_on_Label_gui_input"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/QueryPanel/InputQuery" to="." method="_on_InputQuery_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/QueryPanel/InputQuery" to="." method="_on_InputQuery_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonExecute" to="." method="_on_ButtonExecute_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ResultPanel/ButtonResultQuery" to="." method="_on_ButtonResultQuery_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/TrueResultPanel/ButtonTrueResult" to="." method="_on_ButtonTrueResult_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Historic/ButtonQuery" to="." method="_on_ButtonQuery_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Historic/ButtonClear" to="." method="_on_ButtonClear_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Historic/ButtonNext" to="." method="_on_ButtonNext_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Historic/ButtonLast" to="." method="_on_ButtonLast_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Historic/ButtonGoTo" to="." method="_on_ButtonGoTo_pressed"]

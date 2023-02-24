@@ -1,0 +1,140 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Tutoriel.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="Options" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+rect_clip_content = true
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = 1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+margin_left = 0.639954
+margin_top = -0.28
+margin_right = 1.00995
+margin_bottom = -0.306
+
+[node name="Content" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.563
+anchor_top = 0.206
+anchor_right = 0.991
+anchor_bottom = 0.985
+margin_left = 0.369995
+margin_top = 0.283989
+margin_right = 0.0899658
+margin_bottom = -0.210022
+
+[node name="Buttons" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.193
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = -0.00999999
+margin_top = -0.0979996
+margin_bottom = 0.171997
+
+[node name="KeyWord" type="Panel" parent="PanelContainer/MainPanel/Buttons"]
+anchor_left = 0.111
+anchor_top = 0.017
+anchor_right = 0.698
+anchor_bottom = 0.237
+margin_left = 0.0559959
+margin_top = -0.0240002
+margin_right = 0.208008
+margin_bottom = 0.135994
+
+[node name="Search" type="TextEdit" parent="PanelContainer/MainPanel/Buttons/KeyWord"]
+anchor_left = 0.027
+anchor_top = 0.538
+anchor_right = 0.595
+anchor_bottom = 0.923
+margin_left = 0.0079999
+margin_top = 0.0479965
+margin_right = -0.12001
+margin_bottom = 0.00799561
+
+[node name="ButtonKeyWordSQL" type="Button" parent="PanelContainer/MainPanel/Buttons/KeyWord"]
+anchor_left = 0.649
+anchor_top = 0.615
+anchor_right = 0.97
+anchor_bottom = 0.846
+margin_left = -0.104019
+margin_top = 0.0400009
+margin_right = -0.119995
+margin_bottom = 0.0159988
+text = "Search"
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Buttons/KeyWord"]
+anchor_left = 0.027
+anchor_top = 0.077
+anchor_right = 0.946
+anchor_bottom = 0.462
+margin_left = 0.0079999
+margin_top = -0.00800037
+margin_right = -0.0160217
+margin_bottom = -0.0480003
+text = "Entrez un mot-clé SQL pour être
+redirigé vers sa page web"
+align = 1
+valign = 1
+
+[node name="PGSQL_Version" type="Panel" parent="PanelContainer/MainPanel/Buttons"]
+anchor_left = 0.111
+anchor_top = 0.288
+anchor_right = 0.698
+anchor_bottom = 0.508
+margin_left = 0.0559959
+margin_top = 0.0639954
+margin_right = 0.208008
+margin_bottom = 0.223999
+
+[node name="ButtonPGSQL_Version" type="Button" parent="PanelContainer/MainPanel/Buttons/PGSQL_Version"]
+anchor_left = 0.649
+anchor_top = 0.615
+anchor_right = 0.97
+anchor_bottom = 0.846
+margin_left = -0.104019
+margin_top = 0.0400009
+margin_right = -0.119995
+margin_bottom = 0.0159988
+text = "Search"
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Buttons/PGSQL_Version"]
+anchor_left = 0.027
+anchor_top = 0.077
+anchor_right = 0.946
+anchor_bottom = 0.462
+margin_left = 0.0079999
+margin_top = -0.00800037
+margin_right = -0.0160217
+margin_bottom = -0.0480003
+text = "Téléchargement de la version de PGSQL"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="PanelContainer/MainPanel/Buttons/KeyWord/ButtonKeyWordSQL" to="." method="_on_ButtonKeyWordSQL_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Buttons/PGSQL_Version/ButtonPGSQL_Version" to="." method="_on_ButtonPGSQL_Version_pressed"]

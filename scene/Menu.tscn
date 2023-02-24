@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/PopupSettings.gd" type="Script" id=1]
+[ext_resource path="res://scripts/PopupUser.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PopupQuery.gd" type="Script" id=3]
+[ext_resource path="res://scripts/PopupDatabase.gd" type="Script" id=4]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=5]
+[ext_resource path="res://scripts/PopupDivers.gd" type="Script" id=6]
+
+[node name="PanelMenu" type="Panel"]
+anchor_right = 0.994
+anchor_bottom = 0.055
+margin_right = -9.85602
+script = ExtResource( 5 )
+
+[node name="PopupUser" type="MenuButton" parent="."]
+anchor_right = 0.124
+anchor_bottom = 0.979
+margin_right = 1.25639
+margin_bottom = 0.0141106
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Utilisateurs"
+script = ExtResource( 2 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupUser"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 6.10352e-05
+margin_bottom = -0.598007
+
+[node name="PopupDatabase" type="MenuButton" parent="."]
+anchor_left = 0.127
+anchor_right = 0.31
+anchor_bottom = 1.0
+margin_left = -0.0160065
+margin_right = -0.480011
+margin_bottom = -1.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Gestion Base de Données"
+script = ExtResource( 4 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupDatabase"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.00002
+margin_bottom = 1.0
+
+[node name="PopupQuery" type="MenuButton" parent="."]
+anchor_left = 0.31
+anchor_right = 0.437
+anchor_bottom = 1.0
+margin_left = -0.480011
+margin_right = -0.496002
+margin_bottom = -1.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Requêtes"
+script = ExtResource( 3 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupQuery"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.00002
+margin_bottom = 1.0
+
+[node name="PopupSettings" type="MenuButton" parent="."]
+anchor_left = 0.437
+anchor_right = 0.579
+anchor_bottom = 1.0
+margin_left = -0.496002
+margin_right = 0.36792
+margin_bottom = -1.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Options"
+script = ExtResource( 1 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupSettings"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.00002
+margin_bottom = 1.0
+
+[node name="PopupDivers" type="MenuButton" parent="."]
+anchor_left = 0.579
+anchor_right = 0.722
+anchor_bottom = 1.0
+margin_left = 0.36792
+margin_right = 0.223938
+margin_bottom = -1.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Divers"
+script = ExtResource( 6 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupDivers"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.00002
+margin_bottom = 1.0

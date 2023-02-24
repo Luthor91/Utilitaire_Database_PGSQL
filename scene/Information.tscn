@@ -1,0 +1,270 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Information.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="Information" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = 1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+
+[node name="Label2" type="Label" parent="PanelContainer/MainPanel"]
+anchor_left = 0.056
+anchor_top = 0.097
+anchor_right = 0.5
+anchor_bottom = 0.206
+margin_left = 0.439999
+margin_top = 0.157997
+margin_bottom = 0.283989
+text = "Informations : "
+align = 1
+valign = 1
+
+[node name="Inputs" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.193
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = -0.00999999
+margin_top = -0.0979996
+margin_bottom = 0.171997
+
+[node name="Version" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.016
+anchor_top = 0.044
+anchor_right = 0.984
+anchor_bottom = 0.117
+margin_left = -0.0640001
+margin_top = -0.0680027
+margin_right = 0.0639954
+margin_bottom = 0.000995636
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/Version"]
+anchor_top = 0.2
+anchor_right = 0.262
+anchor_bottom = 0.8
+margin_right = 0.14399
+text = "Version : "
+align = 1
+valign = 1
+
+[node name="InputVersion" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/Version"]
+anchor_left = 0.295
+anchor_top = 0.096
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_left = 0.0399933
+margin_top = -0.3144
+margin_bottom = -0.619999
+rect_pivot_offset = Vector2( 350, 103 )
+readonly = true
+
+[node name="Extension" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.016
+anchor_top = 0.132
+anchor_right = 0.984
+anchor_bottom = 0.205
+margin_left = -0.0640001
+margin_top = -0.204002
+margin_right = 0.0639954
+margin_bottom = -0.13501
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/Extension"]
+anchor_top = 0.2
+anchor_right = 0.262
+anchor_bottom = 0.8
+margin_right = 0.14399
+text = "Extensions : "
+align = 1
+valign = 1
+
+[node name="InputExtension" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/Extension"]
+anchor_left = 0.295
+anchor_top = 0.058
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_left = 0.0399933
+margin_top = -0.00244975
+margin_bottom = 0.380005
+rect_pivot_offset = Vector2( 350, 103 )
+readonly = true
+
+[node name="Table" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.016
+anchor_top = 0.219
+anchor_right = 0.984
+anchor_bottom = 0.293
+margin_left = -0.0640001
+margin_top = 0.206993
+margin_right = 0.0639954
+margin_bottom = -0.271011
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/Table"]
+anchor_top = 0.2
+anchor_right = 0.262
+anchor_bottom = 0.8
+margin_right = 0.14399
+text = "Nombre tables : "
+align = 1
+valign = 1
+
+[node name="InputTable" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/Table"]
+anchor_left = 0.295
+anchor_top = 0.012
+anchor_right = 1.0
+anchor_bottom = 0.709
+margin_left = 0.0399933
+margin_top = -0.4134
+margin_bottom = -0.425055
+rect_pivot_offset = Vector2( 350, 103 )
+readonly = true
+
+[node name="Taille" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.016
+anchor_top = 0.307
+anchor_right = 0.984
+anchor_bottom = 0.38
+margin_left = -0.0640001
+margin_top = 0.0709991
+margin_right = 0.0639954
+margin_bottom = 0.139984
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/Taille"]
+anchor_top = 0.2
+anchor_right = 0.262
+anchor_bottom = 0.8
+margin_right = 0.14399
+text = "Taille : "
+align = 1
+valign = 1
+
+[node name="InputTaille" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/Taille"]
+anchor_left = 0.295
+anchor_right = 1.0
+anchor_bottom = 0.666
+margin_left = 0.0399933
+margin_top = -1.0
+margin_bottom = 0.00636482
+readonly = true
+
+[node name="Compte" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.016
+anchor_top = 0.39
+anchor_right = 0.984
+anchor_bottom = 0.468
+margin_left = -0.0640001
+margin_top = -0.0800018
+margin_right = 0.0639954
+margin_bottom = 0.104004
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/Compte"]
+anchor_top = 0.174
+anchor_right = 0.262
+anchor_bottom = 0.8
+margin_top = -0.00734663
+margin_right = 0.14399
+margin_bottom = 0.380016
+text = "Nombre comptes : "
+align = 1
+valign = 1
+
+[node name="InputCompte" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/Compte"]
+anchor_left = 0.295
+anchor_right = 1.0
+anchor_bottom = 0.649
+margin_left = 0.0399933
+margin_bottom = -0.0130119
+readonly = true
+
+[node name="Filtre" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.563
+anchor_top = 0.206
+anchor_right = 0.959
+anchor_bottom = 0.261
+margin_left = 0.369995
+margin_top = 0.283989
+margin_right = 0.409973
+margin_bottom = 0.0540009
+
+[node name="LabelFiltreColumn" type="Label" parent="PanelContainer/MainPanel/Filtre"]
+anchor_right = 0.271
+anchor_bottom = 1.0
+margin_right = -0.0640106
+text = "Filtre Colonnes:"
+align = 1
+valign = 1
+
+[node name="InputFiltreColumn" type="TextEdit" parent="PanelContainer/MainPanel/Filtre"]
+anchor_left = 0.3
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.52588e-05
+margin_right = 6.10352e-05
+
+[node name="LabelFiltreRow" type="Label" parent="PanelContainer/MainPanel/Filtre"]
+anchor_top = -1.25
+anchor_right = 0.271
+anchor_bottom = -0.25
+margin_left = -48.0
+margin_top = 1.52588e-05
+margin_right = 4.60001
+margin_bottom = 1.71661e-05
+text = "Filtre Donnée (En cours) :"
+align = 1
+valign = 1
+
+[node name="InputFiltreRow" type="TextEdit" parent="PanelContainer/MainPanel/Filtre"]
+anchor_left = 0.3
+anchor_top = -1.25
+anchor_right = 1.0
+anchor_bottom = -0.25
+margin_left = 1.52588e-05
+margin_right = 6.10352e-05
+
+[node name="Outputs" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.563
+anchor_top = 0.316
+anchor_right = 0.991
+anchor_bottom = 0.985
+margin_left = 0.369995
+margin_top = -0.17601
+margin_right = -23.91
+margin_bottom = -0.210022
+
+[node name="output" type="TextEdit" parent="PanelContainer/MainPanel/Outputs"]
+anchor_right = 1.0
+anchor_bottom = 0.985
+margin_bottom = -0.120026
+readonly = true
+
+[connection signal="focus_entered" from="PanelContainer/MainPanel/Inputs/Extension/InputExtension" to="." method="_on_InputExtension_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/MainPanel/Inputs/Extension/InputExtension" to="." method="_on_InputExtension_focus_exited"]
+[connection signal="focus_entered" from="PanelContainer/MainPanel/Inputs/Table/InputTable" to="." method="_on_InputTable_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/MainPanel/Inputs/Table/InputTable" to="." method="_on_InputTable_focus_exited"]
+[connection signal="focus_entered" from="PanelContainer/MainPanel/Inputs/Compte/InputCompte" to="." method="_on_InputCompte_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/MainPanel/Inputs/Compte/InputCompte" to="." method="_on_InputCompte_focus_exited"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bll5g3rcb10h0"]
+
+[ext_resource type="Script" path="res://Lib/Scenes/HttpClient.gd" id="1_r75qs"]
+
+[node name="HttpClient" type="Node"]
+script = ExtResource("1_r75qs")

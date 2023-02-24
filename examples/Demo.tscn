@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/dialogue_nodes/objects/dialogueBox.gd" type="Script" id=1]
+[ext_resource path="res://examples/demo.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://addons/dialogue_nodes/themes/bubbly.theme" type="Theme" id=4]
+[ext_resource path="res://addons/dialogue_nodes/objects/bbcodeWait.gd" type="Script" id=5]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.71435, 0.0, 0, 0 ]
+
+[sub_resource type="RichTextEffect" id=13]
+script = ExtResource( 5 )
+
+[node name="Demo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -11.0
+margin_right = 42.0
+margin_bottom = 11.0
+text = "Start Demo"
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2( 527.817, 268.304 )
+emitting = false
+amount = 64
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.9
+randomness = 0.2
+lifetime_randomness = 0.5
+texture = ExtResource( 3 )
+emission_shape = 1
+emission_sphere_radius = 32.0
+direction = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.5
+scale_amount_curve = SubResource( 1 )
+
+[node name="DialogueBox" type="PopupDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -269.0
+margin_top = -180.0
+margin_right = 269.0
+margin_bottom = -28.0
+rect_min_size = Vector2( 300, 72 )
+popup_exclusive = true
+script = ExtResource( 1 )
+dialogue_file = "res://examples/Example4.json"
+start_id = "SIGNALS"
+custom_effects = [ SubResource( 13 ) ]
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="dialogue_signal" from="DialogueBox" to="." method="_on_dialogue_signal"]

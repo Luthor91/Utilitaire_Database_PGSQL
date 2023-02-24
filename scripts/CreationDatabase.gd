@@ -1,0 +1,87 @@
+extends Node2D
+
+var database := PostgreSQLClient.new();
+onready var USER = Globals.USER;
+onready var PASSWORD = Globals.PASSWORD;
+onready var HOST = Globals.HOST;
+onready var DATABASE = Globals.DATABASE;
+onready var PORT = Globals.PORT;
+
+var _user_id = OS.get_unique_id()
+var _error = "";
+
+func _init() -> void:
+	_error = database.connect("connection_established", self, "_query")
+	_error = database.connect("authentication_error", self, "_authentication_error")
+	_error = database.connect("connection_closed", self, "_close")
+
+func _ready():
+	pass
+ 
+func _physics_process(_delta: float) -> void:
+	database.poll()
+	
+func _authentication_error(error_object: Dictionary) -> void:
+	prints("Error connection to database:", error_object["message"])
+
+func _query():
+	var input = $PanelContainer/MainPanel/QueryPanel/InputQuery.text;
+	var json = JSON.parse(input);
+	createAllTable(json.result);
+	
+func executeQuery(var _query):
+	if not database.error_object.empty():
+		prints("Error:", database.error_object)
+	if _query.ends_with(';'):
+		return database.execute(_query);
+	else:
+		return database.execute(_query + ';');
+
+func _close(clean_closure := true) -> void:
+	prints("DB CLOSE,", "Clean closure:", clean_closure)
+
+func _exit_tree() -> void:
+	database.close()
+	
+func createAllTable(var tabJson):
+	var queryPrinted = '';
+	for table in tabJson:
+		var queryTable = '';
+		var queryTablePrinted = '';
+		for index in tabJson[table]:
+			for column in tabJson[table][index]:
+				var nomColonne = '';
+				var typeColonne = '';
+				queryTable = str(queryTable, ' ', tabJson[table][index][column]);
+				queryTablePrinted = str(queryTablePrinted, ' ', tabJson[table][index][column]);
+				
+				if column == 'type':
+					typeColonne = tabJson[table][index]['type'];
+					queryTable = str(queryTable, ',');
+					queryTablePrinted = str(queryTablePrinted, ',\n');
+				if column == 'nom':
+					nomColonne = tabJson[table][index]['nom'];
+				if 'FK_' in nomColonne:
+					typeColonne = 'INT';
+		queryTable.erase(queryTable.length()-1, 1);
+#		queryPrinted = str('CREATE TABLE IF NOT EXISTS "', table, '"(\n', queryPrinted, ');\n\n');
+		var query = str('CREATE TABLE IF NOT EXISTS "', table, '" (', queryTable, ');');
+		queryPrinted = str(queryPrinted, 'CREATE TABLE IF NOT EXISTS "', table, '" (\n', queryTablePrinted, ');', '\n\n');
+		executeQuery(query);
+	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = queryPrinted;
+
+func _on_ButtonExecute_pressed():
+	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
+
+
+func _on_ButtonCopy_pressed():
+	var txt = $PanelContainer/MainPanel/QueryResult/ResultQuery.text
+	OS.set_clipboard(txt)
+
+
+func _on_ButtonShowJSON_pressed():
+	var labelInfo = $PanelContainer/MainPanel/QueryPanel/LabelInfo;
+	if labelInfo.visible == true:
+		labelInfo.visible = false;
+	else:
+		labelInfo.visible = true;

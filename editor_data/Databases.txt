@@ -1,0 +1,2 @@
+postgresql://postgres:postgres@127.0.0.1:5432/PM3
+postgresql://postgres:postgres@127.0.0.1:5432/postgres
