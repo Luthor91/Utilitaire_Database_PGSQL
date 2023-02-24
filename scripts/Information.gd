@@ -67,9 +67,6 @@ func isInDict(var dict, var needle):
 				print("needle : ", str(needle), " row : ", str(row));
 				return true;
 	return false;
-	
-
-
 
 func getResult(var datas):
 	var dictResult = {}; 
