@@ -33,6 +33,8 @@ func _query():
 		reCreateFK();
 	elif choice == 'table':
 		showTables();
+	elif choice == 'column':
+		showColumns();
 	
 func executeQuery(var _query):
 	if not database.error_object.empty():
@@ -82,6 +84,15 @@ func showTables():
 	for table in res:
 		$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res[table]['table_name'], "\n");
 		pass
+
+func showColumns():
+	var nameTable = $PanelContainer/MainPanel/QueryPanel/InputColonne.text;
+	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", nameTable, "' ORDER BY ordinal_position;");
+	var execColumn = executeQuery(query);
+	var res = getResult(execColumn);
+	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
+	for column in res:
+		$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res[column]['column_name'], "\n");
 
 func reCreateFK():
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
@@ -139,3 +150,8 @@ func _on_ButtonTables_pressed():
 	choice = "table";
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
 
+
+
+func _on_ButtonColumn_pressed():
+	choice = "column";
+	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);

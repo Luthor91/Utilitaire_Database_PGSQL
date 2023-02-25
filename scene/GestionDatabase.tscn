@@ -82,12 +82,41 @@ text = "Affichage Tables :"
 align = 1
 valign = 1
 
+[node name="LabelColumn" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = -1.375
+anchor_top = 3.5
+anchor_right = -0.125
+anchor_bottom = 5.5
+margin_left = 1412.37
+margin_top = -1624.5
+margin_right = 311.12
+margin_bottom = -2642.5
+text = "Affichage Colonne :"
+align = 1
+valign = 1
+
+[node name="InputColonne" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = -0.962
+anchor_right = -0.06
+anchor_bottom = 1.0
+margin_left = 1155.66
+margin_top = 285.0
+margin_right = 373.54
+margin_bottom = -224.0
+
 [node name="ButtonTables" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
 margin_left = 185.0
 margin_top = 221.0
 margin_right = 313.0
 margin_bottom = 253.0
 text = "Affichage Tables"
+
+[node name="ButtonColumn" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+margin_left = 321.0
+margin_top = 285.0
+margin_right = 454.0
+margin_bottom = 317.0
+text = "Affichage Colonnes"
 
 [node name="ButtonPK" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
 anchor_left = 0.199
@@ -156,6 +185,7 @@ mouse_default_cursor_shape = 2
 text = "Copy"
 
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonTables" to="." method="_on_ButtonTables_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonColumn" to="." method="_on_ButtonColumn_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonPK" to="." method="_on_ButtonPK_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonFK" to="." method="_on_ButtonFK_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryResult/ButtonCopy" to="." method="_on_ButtonCopy_pressed"]
