@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/PopupSettings.gd" type="Script" id=1]
 [ext_resource path="res://scripts/PopupUser.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scripts/PopupDatabase.gd" type="Script" id=4]
 [ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=5]
 [ext_resource path="res://scripts/PopupDivers.gd" type="Script" id=6]
+[ext_resource path="res://scripts/PopupTables.gd" type="Script" id=7]
 
 [node name="PanelMenu" type="Panel"]
 anchor_right = 0.994
@@ -53,12 +54,33 @@ margin_top = 1.0
 margin_right = 1.00002
 margin_bottom = 1.0
 
-[node name="PopupQuery" type="MenuButton" parent="."]
+[node name="PopupTables" type="MenuButton" parent="."]
 anchor_left = 0.31
-anchor_right = 0.437
-anchor_bottom = 1.0
+anchor_right = 0.452
+anchor_bottom = 0.97
 margin_left = -0.480011
-margin_right = -0.496002
+margin_right = 0.383972
+margin_bottom = -0.0100021
+focus_mode = 2
+mouse_default_cursor_shape = 2
+text = "Gestion Tables"
+script = ExtResource( 7 )
+
+[node name="PopupMenu2" type="PopupMenu" parent="PopupTables"]
+anchor_top = 1.0
+anchor_right = 1.008
+anchor_bottom = 5.806
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.00002
+margin_bottom = 1.0
+
+[node name="PopupQuery" type="MenuButton" parent="."]
+anchor_left = 0.452
+anchor_right = 0.579
+anchor_bottom = 1.0
+margin_left = 0.383972
+margin_right = 0.36792
 margin_bottom = -1.0
 focus_mode = 2
 mouse_default_cursor_shape = 2
@@ -75,12 +97,12 @@ margin_right = 1.00002
 margin_bottom = 1.0
 
 [node name="PopupSettings" type="MenuButton" parent="."]
-anchor_left = 0.437
-anchor_right = 0.579
-anchor_bottom = 1.0
-margin_left = -0.496002
-margin_right = 0.36792
-margin_bottom = -1.0
+anchor_left = 0.579
+anchor_right = 0.722
+anchor_bottom = 0.97
+margin_left = 0.36792
+margin_right = 0.223877
+margin_bottom = -0.0100021
 focus_mode = 2
 mouse_default_cursor_shape = 2
 text = "Options"
@@ -96,12 +118,12 @@ margin_right = 1.00002
 margin_bottom = 1.0
 
 [node name="PopupDivers" type="MenuButton" parent="."]
-anchor_left = 0.579
-anchor_right = 0.722
-anchor_bottom = 1.0
-margin_left = 0.36792
-margin_right = 0.223938
-margin_bottom = -1.0
+anchor_left = 0.722
+anchor_right = 0.865
+anchor_bottom = 0.97
+margin_left = 0.223877
+margin_right = 0.079895
+margin_bottom = -0.0100021
 focus_mode = 2
 mouse_default_cursor_shape = 2
 text = "Divers"

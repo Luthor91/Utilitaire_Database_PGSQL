@@ -73,7 +73,7 @@ func _connected():
 	Globals.rwFile("postgresql://%s:%s@%s:%d/%s" 
 		% [USER, PASSWORD, HOST, PORT, DATABASE], "Databases.txt");
 	database.close();
-	var _changeScene = get_tree().change_scene("res://scene/Database.tscn");
+	var _changeScene = get_tree().change_scene("res://scene/RequeteEcrite.tscn");
 
 func get_inputs():
 	USER = $PanelContainer/MainPanel/Inputs/Username/Input.text;

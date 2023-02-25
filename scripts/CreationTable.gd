@@ -32,10 +32,7 @@ func _query():
 	if choice == 'tables':
 		var json = JSON.parse(inputCreateTables);
 		createAllTable(json.result);
-	elif choice == 'databases':
-		createDatabase(inputCreateDatabase);
-	
-	
+
 func executeQuery(var _query):
 	if not database.error_object.empty():
 		prints("Error:", database.error_object)
@@ -77,10 +74,6 @@ func createAllTable(var tabJson):
 		executeQuery(query);
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = queryPrinted;
 
-func createDatabase(var nameDatabase):
-	var query = str('CREATE DATABASE "', nameDatabase, '";');
-	executeQuery(query);
-
 func _on_ButtonExecute_pressed():
 	choice = 'tables';
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
@@ -97,9 +90,3 @@ func _on_ButtonShowJSON_pressed():
 		labelInfo.visible = false;
 	else:
 		labelInfo.visible = true;
-
-
-func _on_ButtonCreateDatabase_pressed():
-	choice = 'databases';
-	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
-

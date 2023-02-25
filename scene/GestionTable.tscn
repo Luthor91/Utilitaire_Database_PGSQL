@@ -1,0 +1,191 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/GestionTable.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="GestionTable" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = -1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+
+[node name="QueryPanel" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.075
+anchor_right = 0.999
+anchor_bottom = 0.998
+margin_left = -1.01
+margin_top = 0.0499992
+margin_right = 0.00994873
+margin_bottom = 0.171997
+
+[node name="LabelPK" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.025
+anchor_top = 0.142
+anchor_right = 0.175
+anchor_bottom = 0.261
+margin_left = -0.224998
+margin_top = 0.177994
+margin_right = -0.574997
+margin_bottom = -0.201004
+text = "Reset de Clé Primaire à 1"
+align = 1
+valign = 1
+
+[node name="LabelFK" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.025
+anchor_top = 0.261
+anchor_right = 0.175
+anchor_bottom = 0.381
+margin_left = -0.224998
+margin_top = -0.201004
+margin_right = 0.425003
+margin_bottom = -0.121002
+text = "Création clé étrangère :"
+align = 1
+valign = 1
+
+[node name="LabelTables" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = -1.375
+anchor_top = 3.5
+anchor_right = -0.125
+anchor_bottom = 5.5
+margin_left = 1412.38
+margin_top = -1688.5
+margin_right = 311.125
+margin_bottom = -2706.5
+text = "Affichage Tables :"
+align = 1
+valign = 1
+
+[node name="LabelColumn" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = -1.375
+anchor_top = 3.5
+anchor_right = -0.125
+anchor_bottom = 5.5
+margin_left = 1412.37
+margin_top = -1624.5
+margin_right = 311.12
+margin_bottom = -2642.5
+text = "Affichage Colonne :"
+align = 1
+valign = 1
+
+[node name="InputColonne" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = -0.962
+anchor_right = -0.06
+anchor_bottom = 1.0
+margin_left = 1155.66
+margin_top = 285.0
+margin_right = 373.54
+margin_bottom = -224.0
+
+[node name="ButtonTables" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+margin_left = 185.0
+margin_top = 221.0
+margin_right = 313.0
+margin_bottom = 253.0
+text = "Affichage Tables"
+
+[node name="ButtonColumn" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+margin_left = 321.0
+margin_top = 285.0
+margin_right = 454.0
+margin_bottom = 317.0
+text = "Affichage Colonnes"
+
+[node name="ButtonPK" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.199
+anchor_top = 0.172
+anchor_right = 0.326
+anchor_bottom = 0.231
+margin_left = 0.209015
+margin_top = -0.052002
+margin_right = 0.06604
+margin_bottom = 0.0289993
+text = "Clé Primaire"
+
+[node name="ButtonFK" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
+anchor_left = 0.183
+anchor_top = 0.29
+anchor_right = 0.31
+anchor_bottom = 0.349
+margin_left = 0.352997
+margin_top = 0.109985
+margin_right = 0.210022
+margin_bottom = 0.190994
+text = "Clé Etrangère"
+
+[node name="QueryResult" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_top = 0.075
+anchor_bottom = 0.075
+margin_left = 697.0
+margin_top = 269.05
+margin_right = 1009.0
+margin_bottom = 541.05
+
+[node name="LabelResult" type="Label" parent="PanelContainer/MainPanel/QueryResult"]
+anchor_left = 699.065
+anchor_top = 2336.11
+anchor_right = 798.079
+anchor_bottom = 2450.86
+margin_left = -218076.0
+margin_top = -635421.0
+margin_right = -248841.0
+margin_bottom = -666571.0
+text = "Sortie"
+align = 1
+valign = 1
+
+[node name="ResultQuery" type="TextEdit" parent="PanelContainer/MainPanel/QueryResult"]
+anchor_left = 644.15
+anchor_top = 2623.0
+anchor_right = 989.275
+anchor_bottom = 4786.97
+margin_left = -200967.0
+margin_top = -713392.0
+margin_right = -308358.0
+margin_bottom = -1.3018e+06
+readonly = true
+
+[node name="ButtonCopy" type="Button" parent="PanelContainer/MainPanel/QueryResult"]
+anchor_left = 0.641
+anchor_top = 0.088
+anchor_right = 0.923
+anchor_bottom = 0.176
+margin_left = 0.00799561
+margin_top = 0.0639973
+margin_right = 0.0239868
+margin_bottom = 0.127995
+mouse_default_cursor_shape = 2
+text = "Copy"
+
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonTables" to="." method="_on_ButtonTables_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonColumn" to="." method="_on_ButtonColumn_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonPK" to="." method="_on_ButtonPK_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonFK" to="." method="_on_ButtonFK_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryResult/ButtonCopy" to="." method="_on_ButtonCopy_pressed"]

@@ -21,6 +21,6 @@ func _item_selected(id: int):
 	var _dump;
 	match id:
 		Options.QUERY_WRITTEN:
-			_dump = get_tree().change_scene("res://scene/Database.tscn");
+			_dump = get_tree().change_scene("res://scene/RequeteEcrite.tscn");
 		Options.QUERY_VISUAL:
 			print("Requêtes Formulaire")
