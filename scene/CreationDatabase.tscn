@@ -43,93 +43,42 @@ margin_top = 0.0499992
 margin_right = 0.00994873
 margin_bottom = 0.171997
 
-[node name="Label" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.034
-anchor_top = 0.024
-anchor_right = 0.31
-anchor_bottom = 0.144
-margin_left = -0.306004
-margin_top = 0.0159998
-margin_right = 0.209991
-margin_bottom = 0.095993
-text = "Database JSON :"
-align = 1
-valign = 1
-
 [node name="LabelCreateDatabase" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.382
+anchor_left = 0.072
 anchor_top = 0.054
-anchor_right = 0.493
+anchor_right = 0.183
 anchor_bottom = 0.113
-margin_left = -0.438019
+margin_left = 0.351997
 margin_top = -0.214001
-margin_right = -0.437012
+margin_right = 0.352997
 margin_bottom = -0.133003
 text = "Create Database :"
 align = 1
 valign = 1
 
-[node name="InputQuery" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.034
-anchor_top = 0.144
-anchor_right = 0.31
-anchor_bottom = 0.852
-margin_left = -0.306004
-margin_top = 0.095993
-margin_right = 0.209991
-margin_bottom = 0.0679626
-
 [node name="InputCreateDatabase" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.034
-anchor_top = 0.144
-anchor_right = 0.31
-anchor_bottom = 0.852
-margin_left = 470.694
-margin_top = -48.904
-margin_right = 320.21
-margin_bottom = -399.932
+anchor_left = 0.231
+anchor_top = 0.054
+anchor_right = 0.358
+anchor_bottom = 0.113
+margin_left = -0.0789948
+margin_top = -0.214001
+margin_right = -0.221985
+margin_bottom = -0.133003
 
 [node name="ButtonCreateDatabase" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.263
+anchor_left = 0.382
 anchor_top = 0.054
-anchor_right = 0.35
+anchor_right = 0.469
 anchor_bottom = 0.113
-margin_left = 375.633
+margin_left = -0.438019
 margin_top = -0.214001
-margin_right = 375.85
-margin_bottom = -2.133
+margin_right = -0.220978
+margin_bottom = -0.133003
 rect_min_size = Vector2( 50, 10 )
 rect_clip_content = true
 mouse_default_cursor_shape = 2
 text = "Create"
-
-[node name="ButtonExecute" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.098
-anchor_top = 0.896
-anchor_right = 0.247
-anchor_bottom = 0.955
-margin_left = 0.117996
-margin_top = 0.263977
-margin_right = -0.223007
-margin_bottom = -1.65503
-rect_min_size = Vector2( 150, 30 )
-rect_clip_content = true
-mouse_default_cursor_shape = 2
-text = "Executer"
-
-[node name="ButtonShowJSON" type="Button" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.263
-anchor_top = 0.054
-anchor_right = 0.35
-anchor_bottom = 0.113
-margin_left = -0.367004
-margin_top = -0.214001
-margin_right = -0.150024
-margin_bottom = -2.133
-rect_min_size = Vector2( 50, 10 )
-rect_clip_content = true
-mouse_default_cursor_shape = 2
-text = "Show JSON"
 
 [node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/QueryPanel"]
 visible = false
@@ -211,6 +160,4 @@ mouse_default_cursor_shape = 2
 text = "Copy"
 
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonCreateDatabase" to="." method="_on_ButtonCreateDatabase_pressed"]
-[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonExecute" to="." method="_on_ButtonExecute_pressed"]
-[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonShowJSON" to="." method="_on_ButtonShowJSON_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryResult/ButtonCopy" to="." method="_on_ButtonCopy_pressed"]

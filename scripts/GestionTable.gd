@@ -35,6 +35,10 @@ func _query():
 		showTables();
 	elif choice == 'column':
 		showColumns();
+	elif choice == 'renametable':
+		renameTable();
+	elif choice == 'renamecolumn':
+		renameColumn();
 	
 func executeQuery(var _query):
 	if not database.error_object.empty():
@@ -93,6 +97,23 @@ func showColumns():
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
 	for column in res:
 		$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res[column]['column_name'], "\n");
+
+func renameTable():
+	var input = $PanelContainer/MainPanel/QueryPanel/InputRenameTable.text;
+	var split = input.split(',');
+	var oldNameTable = split[0];
+	var newNameTable = split[1];
+	var query = str('ALTER TABLE "', oldNameTable, '" RENAME TO "', newNameTable, '";');
+	var execColumn = executeQuery(query);
+
+func renameColumn():
+	var input = $PanelContainer/MainPanel/QueryPanel/InputRenameColumn.text;
+	var split = input.split(',');
+	var nameTable = split[0];
+	var oldNameColumn = split[1];
+	var newNameColumn = split[2];
+	var query = str('ALTER TABLE "', nameTable, '" RENAME COLUMN "', oldNameColumn, '" TO "', newNameColumn, '";');
+	var execColumn = executeQuery(query);
 
 func reCreateFK():
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
@@ -155,3 +176,21 @@ func _on_ButtonTables_pressed():
 func _on_ButtonColumn_pressed():
 	choice = "column";
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);
+
+
+func _on_ButtonRenameTable_pressed():
+	choice = "renametable";
+	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);
+
+func _on_ButtonRenameColumn_pressed():
+	choice = "renamecolumn";
+	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);
+
+
+func _on_InputRenameTable_focus_entered():
+	var output = str("Entrez :\n[AncienNomTable],[NouveauNomTable]\nExemple :\nOldName,NewName");
+	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = output;
+
+func _on_InputRenameColumn_focus_entered():
+	var output = str("Entrez :\n[NomTable],[AncienNomColonne],[NouveauNomColonne]\nExemple :\nNameTable,OldName,NewName");
+	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = output;
