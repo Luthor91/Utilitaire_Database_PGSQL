@@ -300,10 +300,10 @@ margin_bottom = -1.0
 anchor_top = 0.004
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 6.144
-margin_right = 8.0
-margin_bottom = 6.0
+margin_left = 12.0
+margin_top = 10.144
+margin_right = 12.0
+margin_bottom = 10.0
 
 [node name="ColorText" type="Panel" parent="Control"]
 visible = false
@@ -319,10 +319,10 @@ margin_bottom = -1.0
 [node name="ColorPicker" type="ColorPicker" parent="Control/ColorText"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 8.0
-margin_bottom = 6.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 12.0
+margin_bottom = 10.0
 
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonDefaultAccount" to="." method="_on_ButtonDefaultAccount_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorText" to="." method="_on_ButtonColorText_pressed"]

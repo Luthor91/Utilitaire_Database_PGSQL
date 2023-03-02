@@ -10,8 +10,8 @@ func _ready():
 	var mb = self
 	# Create the items and set the Id's to the enum values.
 	var popup = mb.get_popup()
-	popup.add_item("Gestion Base de Données", Options.TABLE_MANAGEMENT)
-	popup.add_item("Création Base de Données", Options.TABLE_CREATION)
+	popup.add_item("Gestion Table", Options.TABLE_MANAGEMENT)
+	popup.add_item("Création Table", Options.TABLE_CREATION)
 	
 	# Connect the id pressed signal to the function which will handle the option logic
 	popup.connect("id_pressed", self, "_item_selected")

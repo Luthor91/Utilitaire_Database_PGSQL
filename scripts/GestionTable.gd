@@ -19,10 +19,22 @@ func _init() -> void:
 
 func _ready():
 	pass
- 
 func _physics_process(_delta: float) -> void:
+	var buttonsTable = $PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel;
+	var buttonsColumn = $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel;
+	for btn in buttonsTable.get_children():
+		if btn.pressed:
+			$PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text = str(btn.text);
+			$PanelContainer/MainPanel/QueryPanel/PanelRenameColumn/InputRenameColumn.text = str(btn.text);
+			$PanelContainer/MainPanel/QueryPanel/PanelRenameTable/InputRenameTable.text = str(btn.text);
+	for btn in buttonsColumn.get_children():
+		if btn.pressed:
+			var btnColumn = $PanelContainer/MainPanel/QueryPanel/PanelRenameColumn/InputRenameColumn;
+			var content = btnColumn.text.split(',');
+			btnColumn.text = str(content[0], ',', btn.text);
 	database.poll()
-	
+
+
 func _authentication_error(error_object: Dictionary) -> void:
 	prints("Error connection to database:", error_object["message"])
 
@@ -33,13 +45,16 @@ func _query():
 		reCreateFK();
 	elif choice == 'table':
 		showTables();
+		printButtonsTable();
 	elif choice == 'column':
 		showColumns();
+		printButtonsColumn();
 	elif choice == 'renametable':
 		renameTable();
 	elif choice == 'renamecolumn':
 		renameColumn();
-	
+
+
 func executeQuery(var _query):
 	if not database.error_object.empty():
 		prints("Error:", database.error_object)
@@ -76,7 +91,6 @@ func reIndexPK():
 			var _execUpdatePK = executeQuery(queryUpdatePK);
 			var queryFindPK = str("SELECT COUNT(1) FROM information_schema.table_constraints WHERE table_name='", tableName, "' AND constraint_name LIKE '%_pkey';");
 			var _execFindPK = executeQuery(queryFindPK);
-			var resQueryFindPK = getResult(_execFindPK);
 			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res1[table]['table_name'], " => \n\t", resQueryFirstPK[0]['id'], " => 1\n");
 		else:
 			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(tableName, " => ??\n");
@@ -90,7 +104,7 @@ func showTables():
 		pass
 
 func showColumns():
-	var nameTable = $PanelContainer/MainPanel/QueryPanel/InputColonne.text;
+	var nameTable = $PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text;
 	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", nameTable, "' ORDER BY ordinal_position;");
 	var execColumn = executeQuery(query);
 	var res = getResult(execColumn);
@@ -98,22 +112,80 @@ func showColumns():
 	for column in res:
 		$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res[column]['column_name'], "\n");
 
+func printButtonsColumn():
+	$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.hide();
+	var nameTable = $PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text;
+	if $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.visible == false:
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.show();
+	else:
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.hide();
+	var baseX = 0;
+	var baseY = 0;
+	var sizeX = 250;
+	var sizeY = 20;
+	var timeOverflowing = 0;
+	var incrSizeY = 0;
+	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", nameTable, "' ORDER BY ordinal_position;");
+	var nameColumn = executeQuery(query);
+	var res = getResult(nameColumn);
+	for id in res:
+		incrSizeY += 1;
+		var btn = Button.new();
+		btn.set_position(
+			Vector2(baseX+(timeOverflowing*sizeX), 
+			(baseY-sizeY)+(sizeY*incrSizeY)));
+		btn.set_size(Vector2(sizeX,sizeY));
+		btn.text = res[id]['column_name'];
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel.add_child(btn);
+		btn.show();
+		if $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel.get_child_count()%25 == 0:
+			incrSizeY = 0;
+			timeOverflowing += 1;
+
+func printButtonsTable():
+	$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.hide();
+	if $PanelContainer/MainPanel/QueryPanel/NodeButtonTable.visible == false:
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.show();
+	else:
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.hide();
+	var baseX = 0;
+	var baseY = 0;
+	var sizeX = 170;
+	var sizeY = 20;
+	var timeOverflowing = 0;
+	var incrSizeY = 0;
+	var nameTable = executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema', 'pg_catalog') ORDER BY table_name ASC;");
+	var res = getResult(nameTable);
+	for id in res:
+		incrSizeY += 1;
+		var btn = Button.new();
+		btn.set_position(
+			Vector2(baseX+(timeOverflowing*sizeX), 
+			(baseY-sizeY)+(sizeY*incrSizeY)));
+		btn.set_size(Vector2(sizeX,sizeY));
+		btn.text = res[id]['table_name'];
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel.add_child(btn);
+		btn.show();
+		if $PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel.get_child_count()%25 == 0:
+			incrSizeY = 0;
+			timeOverflowing += 1;
+
 func renameTable():
-	var input = $PanelContainer/MainPanel/QueryPanel/InputRenameTable.text;
+	var input = $PanelContainer/MainPanel/QueryPanel/PanelRenameTable/InputRenameTable.text;
 	var split = input.split(',');
 	var oldNameTable = split[0];
 	var newNameTable = split[1];
 	var query = str('ALTER TABLE "', oldNameTable, '" RENAME TO "', newNameTable, '";');
-	var execColumn = executeQuery(query);
+	var _execColumn = executeQuery(query);
 
 func renameColumn():
-	var input = $PanelContainer/MainPanel/QueryPanel/InputRenameColumn.text;
+	var input = $PanelContainer/MainPanel/QueryPanel/PanelRenameColumn/InputRenameColumn.text;
 	var split = input.split(',');
 	var nameTable = split[0];
 	var oldNameColumn = split[1];
 	var newNameColumn = split[2];
 	var query = str('ALTER TABLE "', nameTable, '" RENAME COLUMN "', oldNameColumn, '" TO "', newNameColumn, '";');
-	var execColumn = executeQuery(query);
+	var _execColumn = executeQuery(query);
 
 func reCreateFK():
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
@@ -140,7 +212,6 @@ func reCreateFK():
 func _on_ButtonPK_pressed():
 	choice = "PK";
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
-	reIndexPK();
 
 func _on_ButtonFK_pressed():
 	choice = "FK";
