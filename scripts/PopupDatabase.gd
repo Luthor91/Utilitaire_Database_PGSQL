@@ -23,7 +23,7 @@ func _item_selected(id: int):
 		return;
 	match id:
 		Options.EXPORT_IMPORT:
-			print("Export / Import")
+			_dump = get_tree().change_scene("res://scene/ExportImport.tscn");
 		Options.DATABASE_MANAGEMENT:
 			_dump = get_tree().change_scene("res://scene/GestionDatabase.tscn");
 		Options.DATABASE_CREATION:
