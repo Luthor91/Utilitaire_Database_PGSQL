@@ -1,20 +1,16 @@
 extends Node2D
 
 var database := PostgreSQLClient.new();
-var USER = ""
-var PASSWORD = ""
-var HOST = ""
-var PORT = 5432 # Default postgres port
-var DATABASE = ""
+onready var USER = Globals.USER;
+onready var PASSWORD = Globals.PASSWORD;
+onready var HOST = Globals.HOST;
+onready var DATABASE = Globals.DATABASE;
+onready var PORT = Globals.PORT;
 var isConnect = false;
 
 
 func _init() -> void:
-	USER = Login.USER;
-	PASSWORD = Login.PASSWORD;
-	HOST = Login.HOST;
-	PORT = int(Login.PORT);
-	DATABASE = Login.DATABASE;
+	pass
 	
 func _ready():
 	var _error := database.connect("connection_established", self, "_isConnected") 

@@ -212,10 +212,11 @@ margin_right = 0.409973
 margin_bottom = 0.0540009
 
 [node name="LabelFiltreColumn" type="Label" parent="PanelContainer/MainPanel/Filtre"]
+anchor_left = -0.14
 anchor_right = 0.271
 anchor_bottom = 1.0
-margin_right = -0.0640106
-text = "Filtre Colonnes:"
+margin_right = 3.60001
+text = "Filtre Colonnes (WIP)  :"
 align = 1
 valign = 1
 
@@ -234,7 +235,7 @@ margin_left = -48.0
 margin_top = 1.52588e-05
 margin_right = 4.60001
 margin_bottom = 1.71661e-05
-text = "Filtre Donnée (En cours) :"
+text = "Filtre Donnée (WIP) :"
 align = 1
 valign = 1
 

@@ -140,9 +140,8 @@ margin_right = 0.136993
 margin_bottom = 0.122986
 
 [node name="LabelFK" type="Label" parent="PanelContainer/MainPanel/QueryPanel/PanelFK"]
-anchor_top = 0.125
 anchor_right = 0.947
-anchor_bottom = 0.5
+anchor_bottom = 0.375
 margin_right = 0.0559998
 text = "Création clé étrangère"
 align = 1
@@ -151,12 +150,11 @@ valign = 1
 [node name="ButtonFK" type="Button" parent="PanelContainer/MainPanel/QueryPanel/PanelFK"]
 anchor_left = 0.183
 anchor_top = 0.29
-anchor_right = 0.31
-anchor_bottom = 0.349
+anchor_right = 0.789
+anchor_bottom = 0.875
 margin_left = -3.816
 margin_top = 13.44
-margin_right = 72.88
-margin_bottom = 33.664
+margin_right = 0.071991
 text = "Clé Etrangère"
 
 [node name="PanelRenameTable" type="Panel" parent="PanelContainer/MainPanel/QueryPanel"]
@@ -187,10 +185,12 @@ margin_left = -0.0239983
 margin_right = 0.0319824
 
 [node name="ButtonRenameTable" type="Button" parent="PanelContainer/MainPanel/QueryPanel/PanelRenameTable"]
-margin_left = 24.0
-margin_top = 40.0
-margin_right = 126.0
-margin_bottom = 64.0
+anchor_left = 0.158
+anchor_top = 0.625
+anchor_right = 0.829
+anchor_bottom = 1.0
+margin_left = -0.0160007
+margin_right = -0.00801086
 text = "Rename Table"
 
 [node name="PanelRenameColumn" type="Panel" parent="PanelContainer/MainPanel/QueryPanel"]
@@ -225,10 +225,12 @@ margin_left = -0.0239983
 margin_right = 0.0319824
 
 [node name="ButtonRenameColumn" type="Button" parent="PanelContainer/MainPanel/QueryPanel/PanelRenameColumn"]
-margin_left = 16.0
-margin_top = 40.0
-margin_right = 133.0
-margin_bottom = 64.0
+anchor_left = 0.105
+anchor_top = 0.625
+anchor_right = 0.875
+anchor_bottom = 1.0
+margin_left = 0.039999
+margin_right = -1.52588e-05
 text = "Rename Column"
 
 [node name="NodeButtonTable" type="Control" parent="PanelContainer/MainPanel/QueryPanel"]
