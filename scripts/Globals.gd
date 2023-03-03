@@ -45,6 +45,9 @@ func _ready():
 	Console.add_command('exit', self, 'exit_game')\
 		.set_description('Exit application')\
 		.register()
+	Console.add_command('csvi', self, 'print_csvImport')\
+		.set_description('Show Import URL of CSV')\
+		.register()
 		
 #	OS.window_borderless = true;
 	OS.set_window_title("UtilitairePGSQL");
@@ -121,6 +124,13 @@ func print_password():
 func print_connexion():
 	Console.write_line('Conn : postgresql://%s:%s@%s:%d/%s'
 		% [USER, PASSWORD, HOST, PORT, DATABASE]);
+		
+func print_csvImport():
+	var csvPath = str(OS.get_user_data_dir(), '/CSV/');
+	var csvPathSplited = csvPath.split('/');
+	csvPath = str(csvPathSplited[0], '/', csvPathSplited[1], '/Public/');
+	Console.write_line('Path by default : %s'
+		% [csvPath]);
 	
 func set_windowBorder(value):
 	if value.to_lower() == 'false':
