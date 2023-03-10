@@ -1,0 +1,655 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/GestionUtilisateur.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="GestionUtilisateur" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel"]
+visible = false
+margin_left = 1.0
+margin_top = 33.0
+margin_right = 186.0
+margin_bottom = 89.0
+text = "Si Tables et Schemas 
+sont renseignés
+priorité au Schéma"
+align = 1
+valign = 1
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = -1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+
+[node name="LabelTitre" type="Label" parent="PanelContainer/MainPanel"]
+anchor_left = 0.056
+anchor_top = 0.097
+anchor_right = 0.437
+anchor_bottom = 0.206
+margin_left = 0.439999
+margin_top = 0.157997
+margin_right = -0.369995
+margin_bottom = -31.716
+text = "Gestion Rôle "
+align = 1
+valign = 1
+
+[node name="Infos" type="Panel" parent="PanelContainer/MainPanel"]
+margin_left = 505.0
+margin_top = 57.0
+margin_right = 1009.0
+margin_bottom = 121.0
+
+[node name="ButtonUser" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_top = 0.5
+anchor_right = 0.276
+anchor_bottom = 0.812
+margin_right = -0.104004
+margin_bottom = 0.0319977
+text = "Afficher Utilisateurs"
+
+[node name="ButtonSchema" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_left = 0.508
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 0.812
+margin_left = -0.0320129
+margin_right = -3.05176e-05
+margin_bottom = 0.0319977
+text = "Afficher Schémas"
+
+[node name="ButtonTable" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_left = 0.286
+anchor_top = 0.5
+anchor_right = 0.496
+anchor_bottom = 0.812
+margin_left = -0.144012
+margin_right = 0.0159912
+margin_bottom = 0.0319977
+text = "Afficher Tables"
+
+[node name="ButtonPrivileges" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_right = 0.206
+anchor_bottom = 0.312
+margin_right = 0.175995
+margin_bottom = 0.0319996
+rect_pivot_offset = Vector2( 16, 16 )
+text = "Liste Droits"
+
+[node name="ButtonGrant" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_left = 0.238
+anchor_right = 0.444
+anchor_bottom = 0.312
+margin_left = 0.0479965
+margin_right = 0.223984
+margin_bottom = -16.848
+text = "Ajout Droits"
+
+[node name="ButtonRevoke" type="Button" parent="PanelContainer/MainPanel/Infos"]
+anchor_left = 0.476
+anchor_right = 0.683
+anchor_bottom = 0.312
+margin_left = 0.095993
+margin_right = -0.232025
+margin_bottom = -16.848
+text = "Retrait Droits"
+
+[node name="Modifier" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.152
+anchor_right = 0.5
+anchor_bottom = 0.698
+margin_left = -0.00999999
+margin_top = -0.0720062
+margin_bottom = -0.0280151
+
+[node name="NameUser" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+anchor_right = 1.0
+anchor_bottom = 0.2
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/NameUser"]
+anchor_left = 0.016
+anchor_top = 0.25
+anchor_right = 0.27
+anchor_bottom = 0.75
+margin_left = -0.0640001
+margin_right = -0.0800018
+text = "Nom Rôle :"
+align = 1
+valign = 1
+
+[node name="InputName" type="TextEdit" parent="PanelContainer/MainPanel/Modifier/NameUser"]
+anchor_left = 0.286
+anchor_top = 0.25
+anchor_right = 0.952
+anchor_bottom = 0.75
+margin_left = -0.144012
+margin_right = 0.191986
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/Modifier/NameUser"]
+visible = false
+anchor_left = 0.619
+anchor_top = -0.75
+anchor_right = 0.984
+anchor_bottom = 0.25
+margin_left = 0.0239868
+margin_right = 0.0639954
+text = "Si changement de Username
+AncienNom=>NouveauNom"
+align = 1
+valign = 1
+
+[node name="Password" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+anchor_top = 0.2
+anchor_right = 0.984
+anchor_bottom = 0.4
+margin_top = -16.0
+margin_right = 8.064
+margin_bottom = -16.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/Password"]
+anchor_left = 0.016
+anchor_top = 0.25
+anchor_right = 0.27
+anchor_bottom = 0.75
+margin_left = -0.0640001
+margin_right = -0.0800018
+text = "Password :"
+align = 1
+valign = 1
+
+[node name="InputPassword" type="LineEdit" parent="PanelContainer/MainPanel/Modifier/Password"]
+anchor_left = 0.286
+anchor_top = 0.25
+anchor_right = 0.952
+anchor_bottom = 0.75
+margin_left = -0.144012
+margin_right = 0.191986
+margin_bottom = 0.999996
+rect_pivot_offset = Vector2( 350, 103 )
+secret = true
+
+[node name="Labelinfo" type="Label" parent="PanelContainer/MainPanel/Modifier/Password"]
+visible = false
+anchor_left = 0.619
+anchor_top = -1.5
+anchor_right = 1.0
+anchor_bottom = -0.5
+margin_left = 0.0239868
+text = "Si changement de Password
+AncienPWD=>NouveauPWD"
+align = 1
+valign = 1
+
+[node name="Grant" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+anchor_left = 0.016
+anchor_top = 0.219
+anchor_right = 0.984
+anchor_bottom = 0.293
+margin_left = -8.064
+margin_top = 25.92
+margin_right = 8.064
+margin_bottom = 66.24
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/Grant"]
+anchor_left = 0.016
+anchor_top = 0.25
+anchor_right = 0.27
+anchor_bottom = 0.75
+margin_left = -0.0640001
+margin_right = -0.0800018
+text = "Droits à rajouter :"
+align = 1
+valign = 1
+
+[node name="InputGrant" type="TextEdit" parent="PanelContainer/MainPanel/Modifier/Grant"]
+anchor_left = 0.286
+anchor_top = 0.25
+anchor_right = 0.952
+anchor_bottom = 0.75
+margin_left = -0.144012
+margin_right = 0.191986
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/Modifier/Grant"]
+visible = false
+anchor_left = 0.619
+anchor_top = -2.375
+anchor_right = 1.111
+anchor_bottom = -1.25
+margin_left = 0.0239868
+margin_right = 0.0559692
+margin_bottom = 1.52588e-05
+text = "Droits possibles :
+DELETE, INSERT, REFERENCES,
+ SELECT, TRIGGER, TRUNCATE, 
+UPDATE Séparés de virgules"
+align = 1
+valign = 1
+
+[node name="Revoke" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+anchor_left = 0.016
+anchor_top = 0.219
+anchor_right = 0.984
+anchor_bottom = 0.293
+margin_left = -0.0640001
+margin_top = 73.92
+margin_right = 16.064
+margin_bottom = 114.24
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/Revoke"]
+anchor_top = 0.25
+anchor_right = 0.254
+anchor_bottom = 0.75
+margin_right = -0.0160065
+text = "Droits à retirer :"
+align = 1
+valign = 1
+
+[node name="InputRevoke" type="TextEdit" parent="PanelContainer/MainPanel/Modifier/Revoke"]
+anchor_left = 0.27
+anchor_top = 0.25
+anchor_right = 0.937
+anchor_bottom = 0.75
+margin_left = -0.0800018
+margin_right = -0.248016
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/Modifier/Revoke"]
+visible = false
+anchor_left = 0.603
+anchor_top = -3.125
+anchor_right = 1.095
+anchor_bottom = -2.0
+margin_left = 0.0879822
+margin_top = 1.52588e-05
+margin_right = 0.119995
+text = "Droits possibles :
+DELETE, INSERT, REFERENCES,
+ SELECT, TRIGGER, TRUNCATE, 
+UPDATE Séparés de virgules"
+align = 1
+valign = 1
+
+[node name="Table" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+anchor_left = 0.016
+anchor_top = 0.219
+anchor_right = 0.984
+anchor_bottom = 0.293
+margin_left = -0.0640001
+margin_top = 121.92
+margin_right = 16.064
+margin_bottom = 162.24
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/Table"]
+anchor_top = 0.25
+anchor_right = 0.254
+anchor_bottom = 0.75
+margin_right = -0.0160065
+text = "Tables :"
+align = 1
+valign = 1
+
+[node name="InputTable" type="TextEdit" parent="PanelContainer/MainPanel/Modifier/Table"]
+anchor_left = 0.27
+anchor_top = 0.25
+anchor_right = 0.937
+anchor_bottom = 0.75
+margin_left = -0.0800018
+margin_right = -0.248016
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/Modifier/Table"]
+visible = false
+anchor_left = 0.603
+anchor_top = -3.875
+anchor_right = 1.095
+anchor_bottom = -2.75
+margin_left = 0.0879822
+margin_top = 1.52588e-05
+margin_right = 0.119995
+margin_bottom = 1.52588e-05
+text = "Cliquez sur \"Afficher Tables\"
+puis sur les tables voulu"
+align = 1
+valign = 1
+
+[node name="Schema" type="Panel" parent="PanelContainer/MainPanel/Modifier"]
+visible = false
+anchor_left = 0.016
+anchor_top = 0.219
+anchor_right = 0.984
+anchor_bottom = 0.293
+margin_left = -0.0640001
+margin_top = 169.92
+margin_right = 16.064
+margin_bottom = 210.24
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Modifier/Schema"]
+anchor_top = 0.25
+anchor_right = 0.254
+anchor_bottom = 0.75
+margin_right = -0.0160065
+text = "Schemas :"
+align = 1
+valign = 1
+
+[node name="InputSchema" type="TextEdit" parent="PanelContainer/MainPanel/Modifier/Schema"]
+anchor_left = 0.27
+anchor_top = 0.25
+anchor_right = 0.937
+anchor_bottom = 0.75
+margin_left = -0.0800018
+margin_right = -0.248016
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="LabelInfo" type="Label" parent="PanelContainer/MainPanel/Modifier/Schema"]
+visible = false
+anchor_left = 0.603
+anchor_top = -4.625
+anchor_right = 1.095
+anchor_bottom = -3.5
+margin_left = 0.0879822
+margin_right = 0.119995
+margin_bottom = 1.52588e-05
+text = "Cliquez sur \"Afficher Schémas\"
+puis sur le schéma voulu"
+align = 1
+valign = 1
+
+[node name="Privileges" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 1.0
+margin_top = 0.175995
+margin_right = 1.0
+margin_bottom = 0.171997
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Privileges"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -0.0799999
+margin_top = -1.33514e-05
+margin_right = 0.234978
+margin_bottom = 0.0799885
+text = "Sortie :"
+align = 1
+valign = 1
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/MainPanel/Privileges/Label"]
+anchor_left = 0.067
+anchor_top = 1.353
+anchor_right = 3.6
+anchor_bottom = 8.5
+margin_left = -0.039999
+margin_top = 0.00913239
+margin_right = 3.05176e-05
+margin_bottom = 0.151993
+readonly = true
+
+[node name="NodeButtonGrant" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonGrant"]
+visible = false
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 1016.0
+margin_bottom = 592.0
+
+[node name="Button" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_right = 136.0
+margin_bottom = 20.0
+action_mode = 0
+text = "SELECT"
+
+[node name="Button2" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 30.0
+margin_right = 136.0
+margin_bottom = 50.0
+text = "UPDATE"
+
+[node name="Button3" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 60.0
+margin_right = 136.0
+margin_bottom = 80.0
+text = "INSERT"
+
+[node name="Button4" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 90.0
+margin_right = 136.0
+margin_bottom = 110.0
+text = "TRUNCATE"
+
+[node name="Button5" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 120.0
+margin_right = 136.0
+margin_bottom = 140.0
+text = "REFERENCES"
+
+[node name="Button6" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 150.0
+margin_right = 136.0
+margin_bottom = 170.0
+text = "TRIGGER"
+
+[node name="Button7" type="Button" parent="PanelContainer/MainPanel/NodeButtonGrant/Panel"]
+margin_top = 180.0
+margin_right = 136.0
+margin_bottom = 200.0
+text = "ALL PRIVILEGES"
+
+[node name="NodeButtonListPrivileges" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="PanelContainer" parent="PanelContainer/MainPanel/NodeButtonListPrivileges"]
+visible = false
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 640.0
+margin_bottom = 344.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonListPrivileges/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 121.0
+margin_bottom = 177.0
+
+[node name="PanelTables" type="Panel" parent="PanelContainer/MainPanel/NodeButtonListPrivileges/Panel/Panel"]
+margin_right = 113.0
+margin_bottom = 153.0
+
+[node name="LabelTables" type="Label" parent="PanelContainer/MainPanel/NodeButtonListPrivileges/Panel/Panel/PanelTables"]
+anchor_top = 0.007
+anchor_right = 1.0
+anchor_bottom = 0.216
+margin_left = 1.0
+margin_top = -0.071
+margin_bottom = -0.0480003
+text = "Droits Tables"
+align = 1
+valign = 1
+
+[node name="TextEdit" type="TextEdit" parent="PanelContainer/MainPanel/NodeButtonListPrivileges/Panel/Panel/PanelTables"]
+anchor_top = 0.216
+anchor_right = 1.0
+anchor_bottom = 1.105
+margin_left = 1.0
+margin_top = -0.0480003
+margin_bottom = -0.0650024
+text = "SELECT
+UPDATE
+INSERT
+TRUNCATE
+REFERENCES
+TRIGGER
+ALL PRIVILEGES"
+readonly = true
+highlight_current_line = true
+
+[node name="NodeButtonRevoke" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonRevoke"]
+visible = false
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 1016.0
+margin_bottom = 592.0
+
+[node name="Button" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_right = 136.0
+margin_bottom = 20.0
+text = "SELECT"
+
+[node name="Button2" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 30.0
+margin_right = 136.0
+margin_bottom = 50.0
+text = "UPDATE"
+
+[node name="Button3" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 60.0
+margin_right = 136.0
+margin_bottom = 80.0
+text = "INSERT"
+
+[node name="Button4" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 90.0
+margin_right = 136.0
+margin_bottom = 110.0
+text = "TRUNCATE"
+
+[node name="Button5" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 120.0
+margin_right = 136.0
+margin_bottom = 140.0
+text = "REFERENCES"
+
+[node name="Button6" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 150.0
+margin_right = 136.0
+margin_bottom = 170.0
+text = "TRIGGER"
+
+[node name="Button7" type="Button" parent="PanelContainer/MainPanel/NodeButtonRevoke/Panel"]
+margin_top = 180.0
+margin_right = 136.0
+margin_bottom = 200.0
+text = "ALL PRIVILEGES"
+
+[node name="NodeButtonUser" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonUser"]
+visible = false
+show_behind_parent = true
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 1016.0
+margin_bottom = 592.0
+
+[node name="NodeButtonTable" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonTable"]
+visible = false
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 1016.0
+margin_bottom = 592.0
+
+[node name="NodeButtonSchema" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = -7.0
+margin_top = -7.0
+margin_right = -7.0
+margin_bottom = -7.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/NodeButtonSchema"]
+visible = false
+margin_left = 512.0
+margin_top = 160.0
+margin_right = 1016.0
+margin_bottom = 592.0
+
+[node name="ButtonExec" type="Button" parent="PanelContainer/MainPanel"]
+margin_left = 209.0
+margin_top = 361.0
+margin_right = 337.0
+margin_bottom = 393.0
+shortcut_in_tooltip = false
+text = "Valider"
+
+[node name="ButtonEmpty" type="Button" parent="PanelContainer/MainPanel"]
+anchor_left = 0.373
+anchor_top = 0.602
+anchor_right = 0.429
+anchor_bottom = 0.643
+margin_left = 0.269989
+margin_top = 0.227966
+margin_right = -0.290009
+margin_bottom = 0.201996
+text = "Clear"
+
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonUser" to="." method="_on_ButtonUser_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonSchema" to="." method="_on_ButtonSchema_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonTable" to="." method="_on_ButtonTable_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonPrivileges" to="." method="_on_ButtonPrivileges_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonGrant" to="." method="_on_ButtonGrant_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Infos/ButtonRevoke" to="." method="_on_ButtonRevoke_pressed"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/NameUser/InputName" to="." method="_on_InputName_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/NameUser/InputName" to="." method="_on_InputName_mouse_exited"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/Password/InputPassword" to="." method="_on_InputPassword_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/Password/InputPassword" to="." method="_on_InputPassword_mouse_exited"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/Grant/InputGrant" to="." method="_on_InputGrant_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/Grant/InputGrant" to="." method="_on_InputGrant_mouse_exited"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/Revoke/InputRevoke" to="." method="_on_InputRevoke_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/Revoke/InputRevoke" to="." method="_on_InputRevoke_mouse_exited"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/Table/InputTable" to="." method="_on_InputTable_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/Table/InputTable" to="." method="_on_InputTable_mouse_exited"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Modifier/Schema/InputSchema" to="." method="_on_InputSchema_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Modifier/Schema/InputSchema" to="." method="_on_InputSchema_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ButtonExec" to="." method="_on_ButtonExec_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ButtonEmpty" to="." method="_on_ButtonEmpty_pressed"]

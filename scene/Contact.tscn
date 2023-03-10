@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/Contact.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="Contact" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+rect_clip_content = true
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = 1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+margin_left = 0.639954
+margin_top = -0.28
+margin_right = 1.00995
+margin_bottom = -0.306
+
+[node name="Content" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.563
+anchor_top = 0.206
+anchor_right = 0.991
+anchor_bottom = 0.985
+margin_left = 0.369995
+margin_top = 0.283989
+margin_right = 0.0899658
+margin_bottom = -0.210022
+
+[node name="Buttons" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.193
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = -0.00999999
+margin_top = -0.0979996
+margin_bottom = 0.171997
+
+[node name="ButtonContactMail" type="Button" parent="PanelContainer/MainPanel/Buttons"]
+anchor_left = 0.111
+anchor_top = 0.034
+anchor_right = 0.317
+anchor_bottom = 0.085
+margin_left = 0.0559959
+margin_top = -0.0480003
+margin_right = 0.231995
+margin_bottom = -0.119999
+text = "Mail"
+
+[node name="ButtonContactGithub" type="Button" parent="PanelContainer/MainPanel/Buttons"]
+anchor_left = 0.111
+anchor_top = 0.153
+anchor_right = 0.317
+anchor_bottom = 0.203
+margin_left = 0.0559959
+margin_top = -0.216003
+margin_right = 0.231995
+margin_bottom = 0.183998
+text = "Github"
+
+[connection signal="pressed" from="PanelContainer/MainPanel/Buttons/ButtonContactMail" to="." method="_on_ButtonContactMail_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Buttons/ButtonContactGithub" to="." method="_on_ButtonContactGithub_pressed"]

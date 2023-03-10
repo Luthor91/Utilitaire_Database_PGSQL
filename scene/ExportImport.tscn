@@ -1,0 +1,168 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/ExportImport.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="ExportImport" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+rect_clip_content = true
+script = ExtResource( 3 )
+
+[node name="Import" type="FileDialog" parent="PanelContainer/MainPanel"]
+margin_right = 464.0
+margin_bottom = 352.0
+window_title = "Ouvrir un fichier"
+resizable = true
+mode = 0
+access = 2
+
+[node name="Export" type="FileDialog" parent="PanelContainer/MainPanel"]
+margin_right = 464.0
+margin_bottom = 352.0
+window_title = "Enregistrer un fichier"
+resizable = true
+access = 2
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = 1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+margin_left = 0.639954
+margin_top = -0.28
+margin_right = 1.00995
+margin_bottom = -0.306
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel"]
+anchor_left = 0.056
+anchor_top = 0.097
+anchor_right = 0.5
+anchor_bottom = 0.206
+margin_left = 0.439999
+margin_top = 0.157997
+margin_bottom = 0.283989
+text = "Export et Import :"
+align = 1
+valign = 1
+
+[node name="Inputs" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.193
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = -0.00999999
+margin_top = -0.0979996
+margin_bottom = 0.171997
+
+[node name="PanelExport" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.111
+anchor_top = 0.017
+anchor_right = 0.492
+anchor_bottom = 0.559
+margin_left = 0.0559959
+margin_top = -0.0240002
+margin_right = 0.0319977
+margin_bottom = 0.151978
+
+[node name="ButtonExportCSV" type="Button" parent="PanelContainer/MainPanel/Inputs/PanelExport"]
+anchor_left = 0.208
+anchor_top = 0.125
+anchor_right = 0.792
+anchor_bottom = 0.25
+margin_left = 0.0639992
+margin_right = -0.0640106
+text = "Export CSV"
+
+[node name="ButtonExportBackup" type="Button" parent="PanelContainer/MainPanel/Inputs/PanelExport"]
+anchor_left = 0.208
+anchor_top = 0.312
+anchor_right = 0.792
+anchor_bottom = 0.437
+margin_left = 0.0639992
+margin_top = 0.127998
+margin_right = -0.0640106
+margin_bottom = 0.127998
+text = "Export Backup (WIP)"
+
+[node name="hint" type="PanelContainer" parent="PanelContainer/MainPanel/Inputs/PanelExport"]
+visible = false
+margin_left = 432.0
+margin_top = 32.0
+margin_right = 600.0
+margin_bottom = 112.0
+
+[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/Inputs/PanelExport/hint"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 161.0
+margin_bottom = 73.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/PanelExport/hint/Panel"]
+anchor_right = 0.994
+anchor_bottom = 0.985
+margin_top = 1.0
+margin_right = -0.076004
+margin_bottom = -0.0100021
+text = "Uniquement disponible
+pour C:\\Users\\Public"
+align = 1
+valign = 1
+
+[node name="PanelImport" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.492
+anchor_top = 0.017
+anchor_right = 0.873
+anchor_bottom = 0.559
+margin_left = 0.0319977
+margin_top = -0.0240002
+margin_right = 0.00799561
+margin_bottom = 0.151978
+
+[node name="ButtonImportCSV" type="Button" parent="PanelContainer/MainPanel/Inputs/PanelImport"]
+anchor_left = 0.208
+anchor_top = 0.125
+anchor_right = 0.792
+anchor_bottom = 0.25
+margin_left = 0.0639992
+margin_right = -0.0640106
+text = "Import CSV (WIP)"
+
+[node name="ButtonImportBackup" type="Button" parent="PanelContainer/MainPanel/Inputs/PanelImport"]
+anchor_left = 0.208
+anchor_top = 0.312
+anchor_right = 0.792
+anchor_bottom = 0.437
+margin_left = 0.0639992
+margin_top = 0.127998
+margin_right = -0.0640106
+margin_bottom = 0.127998
+text = "Import Backup (WIP)"
+
+[connection signal="confirmed" from="PanelContainer/MainPanel/Import" to="." method="_on_FileDialog_confirmed"]
+[connection signal="confirmed" from="PanelContainer/MainPanel/Export" to="." method="_on_FileDialog_confirmed"]
+[connection signal="mouse_entered" from="PanelContainer/MainPanel/Inputs/PanelExport/ButtonExportCSV" to="." method="_on_ButtonExportCSV_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/MainPanel/Inputs/PanelExport/ButtonExportCSV" to="." method="_on_ButtonExportCSV_mouse_exited"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/PanelExport/ButtonExportCSV" to="." method="_on_ButtonExportCSV_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/PanelExport/ButtonExportBackup" to="." method="_on_ButtonExportBackup_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/PanelImport/ButtonImportCSV" to="." method="_on_ButtonImportCSV_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/PanelImport/ButtonImportBackup" to="." method="_on_ButtonImportBackup_pressed"]
