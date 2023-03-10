@@ -285,6 +285,7 @@ func _on_ButtonExec_pressed():
 		var _execPassword = executeQuery(queryPassword);
 	if !newName.empty():
 		var _execName = executeQuery(queryName);
+	var _dump = get_tree().change_scene("res://scene/GestionUtilisateur.tscn");
 
 func _on_ButtonUser_pressed():
 	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();

@@ -48,13 +48,13 @@ func _query():
 		tableName = input.split("FROM")[1].split("LIMIT")[0].replace('"', "'").replace(' ', '');
 		var split = input.split("LIMIT", false);
 		var splitLimit = int(split[1].substr(1, split[1].length() - 2));
+		nbTotalRow = splitLimit;
 		if splitLimit > nbLimitPrintable:
 			input = str(split[0], " LIMIT ", nbLimitPrintable, ";");
 	elif "SELECT" in input and "FROM" in input:
 		tableName = input.split("FROM")[1].split(" ")[1].replace('"', "'").replace(';', '').replace(' ', '');
 		input = str(input.substr(0, input.length()-1), " LIMIT ", nbLimitPrintable, ";");
-	nbTotalRow = getMaxRowCount(tableName);
-	print("input : ", input);
+		nbTotalRow = getMaxRowCount(tableName);
 	var exec = executeQuery(input); #21ms
 	var result = getResult(exec); # 7ms
 	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', ' ');
@@ -139,9 +139,7 @@ func pageQueryHandler():
 		if getMaxLimit > getMaxRowCount(tableName):
 			getMaxLimit = getMaxRowCount(tableName);
 		getLimit = ceil(getMaxLimit/maxPage);
-		query = str(query.substr(0, query.length()-(9+str(getLimit).length())), ' LIMIT ', getLimit, " OFFSET ",  getLimit*nbPageQuery-getLimit,";");
-		print("query : ",query);
-		print("getLimit = ", getLimit, "\nnbPageQuery = ", nbPageQuery, "\ngetMaxLimit = ", getMaxLimit);
+		query = str(query.substr(0, query.length()-(9+str(getLimit).length())), '" LIMIT ', getLimit, " OFFSET ",  getLimit*nbPageQuery-getLimit,";");
 	else:
 		getMaxLimit = nbTotalRow;
 		getLimit = ceil(getMaxLimit/maxPage);
