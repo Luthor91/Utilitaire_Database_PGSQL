@@ -34,7 +34,7 @@ func _ready():
 	pass
  
 func _physics_process(_delta: float) -> void:
-	database.poll()
+	database.poll();
 	
 func _authentication_error(error_object: Dictionary) -> void:
 	prints("Error connection to database:", error_object["message"])
@@ -62,27 +62,26 @@ func _query():
 	nbRow = result.size()
 	if (nbRow == nbLimitPrintable) && (nbTotalRow > nbLimitPrintable):
 		maxPage = ceil(nbTotalRow/nbLimitPrintable);
+		$PanelContainer/MainPanel/Historic/ButtonNext.show();
+		$PanelContainer/MainPanel/Historic/ButtonNext.text = str(nbPageQuery, "/", maxPage);
 		if nbPageQuery == maxPage:
 			$PanelContainer/MainPanel/Historic/ButtonNext.text = "Suivant";
-		else:
-			$PanelContainer/MainPanel/Historic/ButtonNext.text = str(nbPageQuery, "/", maxPage);
-		$PanelContainer/MainPanel/Historic/ButtonNext.show();
 
 	$PanelContainer/MainPanel/TrueResultPanel/TrueResultQuery.text = str(result);
 	var time_now = OS.get_ticks_usec();
 	var time_elapsed = time_now - time_start;
-	$PanelContainer/MainPanel/Historic/AllQuery.text += "\t" + str(inputPrinted).replace("\n", " ") + "   t=" + str(time_elapsed/1000) + "ms\n\n";
-	$PanelContainer/MainPanel/Historic/LastQuery.text = "\t" + str(input);
+	if resPrinted == '{}':
+		$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = niceJson.beautify_json(to_json(database.error_object), 2).replace('"', ' ');
+		$PanelContainer/MainPanel/TrueResultPanel/TrueResultQuery.text = to_json(database.error_object);
+	else:
+		$PanelContainer/MainPanel/Historic/AllQuery.text += "\t" + str(inputPrinted).replace("\n", " ") + "   t=" + str(time_elapsed/1000) + "ms\n\n";
+		$PanelContainer/MainPanel/Historic/LastQuery.text = "\t" + str(input);
 
 	
 func executeQuery(var _query):
 	if not database.error_object.empty():
 		prints("Error:", database.error_object)
-	if _query.ends_with(';'):
-		return database.execute(_query);
-	else:
-		return database.execute(_query + ';');
-
+	return database.execute(_query);
 
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
@@ -125,7 +124,6 @@ func pageHandler():
 		$PanelContainer/MainPanel/Historic/ButtonNext.hide();
 	else:
 		$PanelContainer/MainPanel/Historic/ButtonNext.show();
-	
 	$PanelContainer/MainPanel/Historic/ButtonNext.text = str(nbPageQuery, "/", maxPage);
 	$PanelContainer/MainPanel/Historic/ButtonLast.text = str(nbPageQuery-1, "/", maxPage);
 
@@ -193,6 +191,8 @@ func _on_ButtonLast_pressed():
 	pageQueryHandler();
 
 func _on_ButtonGoTo_pressed():
+	if maxPage == 0:
+		return;
 	var page = int($PanelContainer/MainPanel/Historic/goTo.text);
 	if page > maxPage:
 		nbPageQuery = maxPage;

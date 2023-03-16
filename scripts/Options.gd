@@ -121,3 +121,8 @@ func _on_ButtonSize4_pressed():
 	OS.window_size = Vector2(900,528);
 	Globals.wFile('900, 528', 'ScreenSize.txt');
 #	var _dump = get_tree().change_scene("res://scene/Options.tscn");
+
+
+func _on_ButtonFindPGSQL_pressed():
+	OS.alert('test');
+	pass # Replace with function body.

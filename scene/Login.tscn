@@ -9,6 +9,9 @@
 [node name="Login" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="TimerConn" type="Timer" parent="."]
+one_shot = true
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -219,6 +222,7 @@ mouse_default_cursor_shape = 2
 text = "Connexion"
 
 [node name="Error" type="Label" parent="PanelContainer/MainPanel/Inputs"]
+visible = false
 anchor_left = 0.429
 anchor_top = 0.687
 anchor_right = 1.0
@@ -226,38 +230,52 @@ anchor_bottom = 0.761
 margin_left = -0.216003
 margin_top = 0.210968
 margin_bottom = -0.267029
-
-[node name="Historic" type="Panel" parent="PanelContainer/MainPanel"]
-anchor_left = 0.524
-anchor_top = 0.046
-anchor_right = 0.981
-anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 1.0
-margin_bottom = 1.0
-
-[node name="Label" type="Label" parent="PanelContainer/MainPanel/Historic"]
-anchor_top = 0.009
-anchor_right = 0.968
-anchor_bottom = 0.125
-margin_left = 1.0
-margin_top = -0.0313964
-margin_right = 0.200195
-margin_bottom = 0.119499
-text = "Historique : "
+text = "Erreur arguments de connexion invalide.
+Ou alors service Postgres désactivé."
 align = 1
 valign = 1
 
-[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/Historic"]
-anchor_left = 0.084
-anchor_top = 0.166
-anchor_right = 0.916
-anchor_bottom = 0.968
-margin_left = 0.228115
-margin_top = 0.198692
-margin_right = 0.201843
-margin_bottom = -0.154602
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/MainPanel"]
+margin_left = 537.0
+margin_top = 57.0
+margin_right = 897.0
+margin_bottom = 385.0
+drag_to_rearrange_enabled = true
+
+[node name="TabHistorique" type="Tabs" parent="PanelContainer/MainPanel/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+drag_to_rearrange_enabled = true
+
+[node name="Historic" type="Panel" parent="PanelContainer/MainPanel/TabContainer/TabHistorique"]
+anchor_left = 0.009
+anchor_right = 0.991
+anchor_bottom = 0.992
+margin_left = 0.832
+margin_right = 0.167969
+margin_bottom = -1.664
+
+[node name="ScrollHistoric" type="ScrollContainer" parent="PanelContainer/MainPanel/TabContainer/TabHistorique/Historic"]
+anchor_left = 0.023
+anchor_top = 0.028
+anchor_right = 0.973
+anchor_bottom = 0.995
+margin_left = 0.0548792
+margin_top = -0.105216
+margin_right = -0.113129
+margin_bottom = -0.0246582
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainPanel/TabContainer/TabHistorique/Historic/ScrollHistoric"]
+
+[node name="Tabs" type="Tabs" parent="PanelContainer/MainPanel/TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 24.0
+drag_to_rearrange_enabled = true
 
 [node name="LabelInfoConn" type="Label" parent="PanelContainer/MainPanel"]
 visible = false
@@ -275,3 +293,4 @@ Port : 5432"
 [connection signal="mouse_entered" from="PanelContainer/MainPanel/Inputs/ButtonTry" to="." method="_on_ButtonTry_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer/MainPanel/Inputs/ButtonTry" to="." method="_on_ButtonTry_mouse_exited"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonTry" to="." method="_on_ButtonTry_pressed"]
+[connection signal="tab_selected" from="PanelContainer/MainPanel/TabContainer" to="." method="_on_TabContainer_tab_selected"]

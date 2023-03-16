@@ -79,7 +79,7 @@ margin_left = -0.152008
 margin_top = -0.0240002
 margin_right = -0.18399
 margin_bottom = 0.151999
-text = "Couleur Texte"
+text = "Couleur Texte (WIP)"
 
 [node name="ButtonColorPanel" type="Button" parent="PanelContainer/MainPanel/Inputs"]
 anchor_left = 0.714
@@ -102,6 +102,17 @@ margin_top = -0.119999
 margin_right = 0.0399933
 margin_bottom = 0.0559998
 text = "Taille Fenêtre"
+
+[node name="ButtonFindPGSQL" type="Button" parent="PanelContainer/MainPanel/Inputs"]
+anchor_left = 0.413
+anchor_top = 0.085
+anchor_right = 0.667
+anchor_bottom = 0.127
+margin_left = -0.152008
+margin_top = -0.119999
+margin_right = -0.16803
+margin_bottom = 0.0559998
+text = "Trouver PGSQL"
 
 [node name="WindowSize" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
 visible = false
@@ -303,8 +314,10 @@ __meta__ = {
 anchor_top = 0.004
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.856
-margin_bottom = -2.0
+margin_left = 20.0
+margin_top = 18.144
+margin_right = 20.0
+margin_bottom = 18.0
 
 [node name="ColorText" type="Panel" parent="Control"]
 visible = false
@@ -323,12 +336,16 @@ __meta__ = {
 [node name="ColorPicker" type="ColorPicker" parent="Control/ColorText"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -2.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 18.0
 
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonDefaultAccount" to="." method="_on_ButtonDefaultAccount_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorText" to="." method="_on_ButtonColorText_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorPanel" to="." method="_on_ButtonColorPanel_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonWindowSize" to="." method="_on_ButtonWindowSize_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonFindPGSQL" to="." method="_on_ButtonFindPGSQL_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize1" to="." method="_on_ButtonSize1_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize2" to="." method="_on_ButtonSize2_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/WindowSize/ButtonSize3" to="." method="_on_ButtonSize3_pressed"]
