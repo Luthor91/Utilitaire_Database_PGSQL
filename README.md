@@ -11,7 +11,7 @@ Il permet donc d'effectuer :
 
 PROCEDURE D'INSTALLATION :
 =======================
-Téléchargez le fichier UtilitaireDatabaseWindows_V1.0.zip dans la branche "V1" du projet.
+Téléchargez le fichier UtilitaireDatabaseWindows_V1.0.zip dans la branche "V1" de la page github.
 Dézippez le fichier et lancez l'exécutable.
 Cette application à besoin que le service Postgres soit activé.
 Idéalement, lancez le en mode administrateur pour éviter des problèmes au niveau de l'activation automatique des services.
