@@ -9,7 +9,7 @@ Il permet donc d'effectuer :
 - Quelques commandes intégrés dans l'application pour la gestion de l'application
 
 
-INSTALLATION PROCEDURE:
+PROCEDURE D'INSTALLATION :
 =======================
 Téléchargez le fichier UtilitaireDatabaseWindows_V1.0.zip dans la branche "V1" du projet.
 Dézippez le fichier et lancez l'exécutable.
@@ -77,13 +77,13 @@ L'application est divisé en plusieurs groupe de page :
 - Test
   - Rien d'important, Work In Progress
 
-HOW TO USE?:
+FONCTIONNEMENT ? :
 ====================================
 
 
 
 
-PROBLEMS
+PROBLEMES
 ==========================
 
 Modification des droits
@@ -104,7 +104,7 @@ Changer le type de données d'une colonne
 Meilleur gestion des tables
 
 
-FREQUENTLY ASKED QUESTIONS
+FAQ
 ==========================
 
 ### L'application reste bloqué sur la page de Connexion ?
