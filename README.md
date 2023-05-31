@@ -8,6 +8,7 @@ Il permet donc d'effectuer :
 - Configuration de l'application 
 - Quelques commandes intégrés dans l'application pour la gestion de l'application
 
+
 INSTALLATION PROCEDURE:
 =======================
 Téléchargez le fichier UtilitaireDatabaseWindows_V1.0.zip dans la branche "V1" du projet.
@@ -15,10 +16,38 @@ Dézippez le fichier et lancez l'exécutable.
 Cette application à besoin que le service Postgres soit activé.
 Idéalement, lancez le en mode administrateur pour éviter des problèmes au niveau de l'activation automatique des services.
 
+
+Fonctionnement :
+====================================
+
+L'application est divisé en plusieurs groupe de page : 
+
+### Utilisateurs : 
+- Gestion Utilisateur
+  - Permet de gérer les droits de l'utilisateurs pour certaines tables.
+  - Les onglets permettent de gérer les droits en cliquant dessus et les types de droit voulu.
+  - L'application rajoute puis retire les droits, dans le cas où les deux champs sont rempli
+- Création Utilisateur
+  - Permet de créer un utilisateur en lui attribuant des droits, l'attribution des droits ne fonctionne pas complètement.
+  - Cliquer sur les droits permet de les attribuer à l'utilisateur.
+- Suppression Utilisateur
+  - Permet de supprimer un utilisateur
+  - Les utilisateurs sont 
+
+
 HOW TO USE?:
 ====================================
 
-En cours
+
+
+
+PROBLEMS
+==========================
+
+Modification des droits
+Attribution des droits lors de la création d'utilisateur
+Suppression d'utilisateur si il possède déjà des droits
+
 
 FREQUENTLY ASKED QUESTIONS
 ==========================
