@@ -92,6 +92,7 @@ Suppression d'utilisateur si il possède déjà des droits
 Gestion d'un utilisateur comportant des majuscules dans son nom
 La taille de la fenêtre n'est pas réglable et provoque beaucoup de bug visuels
 Les différents onglets crées dans la page Data Visualisation ne sont pas sauvegardés lorsqu'on change de page
+Les requêtes comportant déjà les mots clé "LIMIT" ou "OFFSET" ne peuvent afficher qu'une seule page, veillez à ce que la requête choisi ne renvoie que 100 valeurs ou moins dans ce cas.
 
 
 AMELIORATIONS
