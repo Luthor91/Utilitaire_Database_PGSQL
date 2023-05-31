@@ -107,6 +107,11 @@ Meilleur gestion des tables
 FAQ
 ==========================
 
+### L'action (mot-clé SQL) effectué ne fait rien, ne fonctionne pas ?
+
+=> Avez-vous les droits d'effectuer l'action en question sur le compte que vous utilisez ?
+=> Cherchez dans la page de gestion d'utilisateur les droits que vous avez.
+
 ### L'application reste bloqué sur la page de Connexion ?
 
 ## Première solution :
