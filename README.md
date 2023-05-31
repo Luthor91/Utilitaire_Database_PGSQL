@@ -17,7 +17,7 @@ Cette application à besoin que le service Postgres soit activé.
 Idéalement, lancez le en mode administrateur pour éviter des problèmes au niveau de l'activation automatique des services.
 
 
-Fonctionnement :
+FONCTIONNEMENT :
 ====================================
 
 L'application est divisé en plusieurs groupe de page : 
@@ -32,8 +32,50 @@ L'application est divisé en plusieurs groupe de page :
   - Cliquer sur les droits permet de les attribuer à l'utilisateur.
 - Suppression Utilisateur
   - Permet de supprimer un utilisateur
-  - Les utilisateurs sont 
+  - Les utilisateurs sont disponible sur le côté droit de la page, ils sont cliquables.
 
+
+### Gestion de Base de Données : 
+- Export / Import
+  - Permet d'exporter ou importer des données, seul l'export des fichiers CSV est utilisable pour le moment
+- Gestion Base de Données
+  - Permet de visualiser les tables et colonnes d'une Base de Données, la création de clé étrangère et reset de la clé primaire sont déconseillés car instable.
+- Création Base de Données
+  - Permet de créer une Base de Données vide
+
+
+### Gestion Tables : 
+- Gestion Table
+  - Permet de renomer une colonne ou un table, permet aussi de créer les clé étrangères écrites sous la forme "FK_Table1_Table2"
+- Création Table
+  - Permet de créer une ou plusieurs table(s) avec un format JSON
+
+
+### Requêtes : 
+- Requêtes écrite
+  - Permet d'effectuer des requêtes écrites, plusieurs pages sont créer pour visualiser les données lorsqu'elles sont trop nombreuses. 
+- Requêtes Formulaire
+  - Permet d'effectuer des requêtes en cliquant sur les options proposé, même fonctionnement que la page précédente mais ne gère que les requêtes comportant une seule sous-requête maximum mais elle devras être écrite dans le sous-menu "Condition".
+- Data Visualisation
+  - Permet de visualiser les données JSON ou retourné par une requête PGSQL, plusieurs type de graphiques sont disponible mais ne gère que les requêtes retournant des données chiffrés, plusieurs options sont disponible pour mieux visualiser les données.
+
+
+### Options : 
+- Connexion
+  - Page de connexion avec un historique des dernières connexions et un bouton pour se connecter à la Base de Données enregistré par défaut
+- Options
+  - Permet de modifier les le compte par défaut, la couleur de l'application, les boutons pour la taille de la fenêtre et "Trouver PGSQL" ne fonctionnent pas
+- Informations
+  - Permet d'avoir plusieurs informations sur le nombre de compte, le poids, le nombre de tables, la version utilisé de PGSQL et les extensions présentent dans la Base de Données 
+
+
+### Divers : 
+- Tutoriel
+  - Permet d'avoir accès a la documentation du mot clé SQL entré et de télécharger postgreSQL
+- Contact
+  - Permet de contacter le créateur de l'application
+- Test
+  - Rien d'important, Work In Progress
 
 HOW TO USE?:
 ====================================
@@ -47,6 +89,19 @@ PROBLEMS
 Modification des droits
 Attribution des droits lors de la création d'utilisateur
 Suppression d'utilisateur si il possède déjà des droits
+Gestion d'un utilisateur comportant des majuscules dans son nom
+La taille de la fenêtre n'est pas réglable et provoque beaucoup de bug visuels
+Les différents onglets crées dans la page Data Visualisation ne sont pas sauvegardés lorsqu'on change de page
+
+
+AMELIORATIONS
+==========================
+
+Meilleur affichage des données dans la section "Gestion Base de Données"
+Permettre de créer une Base de Données avec un certain encodage et/ou des tables déjà existantes
+Reset de clé étrangère 
+Changer le type de données d'une colonne
+Meilleur gestion des tables
 
 
 FREQUENTLY ASKED QUESTIONS
