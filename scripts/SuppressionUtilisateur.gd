@@ -20,7 +20,7 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	database.poll();
-	var buttons = $PanelContainer/MainPanel/NodeButton.get_children();
+	var buttons = $PanelContainer/MainPanel/ListUsers/ScrollContainer/NodeButton.get_children();
 	for btn in buttons:
 		if btn.pressed:
 			$PanelContainer/MainPanel/Inputs/NameUser/Input.text = btn.text;
@@ -41,23 +41,19 @@ func _isConnected():
 	isConnect = true;
 	var nameUser = executeQuery("SELECT usename FROM pg_catalog.pg_user ORDER BY usename ASC;");
 	var res = getNameUser(nameUser);
-	var sizeX = 120;
-	var sizeY = 20;
-	var timeOverflowing = 0;
+	var sizeX = 150;
+	var sizeY = 30;
 	var incrSizeY = 0;
 	for id in res:
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(576+(timeOverflowing*sizeX), 
+			Vector2(576+sizeX, 
 			128+(sizeY*incrSizeY)));
 		btn.set_size(Vector2(sizeX,sizeY));
 		btn.text = res[id]['usename'];
-		$PanelContainer/MainPanel/NodeButton.add_child(btn);
+		$PanelContainer/MainPanel/ListUsers/ScrollContainer/NodeButton.add_child(btn);
 		btn.show();
-		if $PanelContainer/MainPanel/NodeButton.get_child_count()%22 == 0:
-			incrSizeY = 0;
-			timeOverflowing += 1;
 
 func getNameUser(var datas):
 	var dictResult = {}; 

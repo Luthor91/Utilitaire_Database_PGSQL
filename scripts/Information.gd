@@ -71,14 +71,14 @@ func isInDict(var dict, var needle):
 func getResult(var datas):
 	var dictResult = {}; 
 	var index = 0;
-	var IsInColumn = false;
-	var IsInValue = false;
+	var _IsInColumn = false;
+	var _IsInValue = false;
 	for data in datas: # Get result of query
 		for row in data.data_row: # List each data column
 			#Boucle sur chaque enregistrement
 			var numberOfColumn = 0;
 			var tempDictionnary = {};
-			var allKeys = data.row_description[numberOfColumn].keys();
+			var _allKeys = data.row_description[numberOfColumn].keys();
 #			FAIRE FILTRE SUR DONNEE ET AFFICHER TOUT L'ENREGISTREMENT
 #			if not $PanelContainer/MainPanel/Filtre/InputFiltreRow.text.empty():
 #				print($PanelContainer/MainPanel/Filtre/InputFiltreRow.text, " || is in || ", value);

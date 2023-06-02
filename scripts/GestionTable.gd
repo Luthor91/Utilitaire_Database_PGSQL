@@ -7,8 +7,12 @@ onready var PASSWORD = Globals.PASSWORD;
 onready var HOST = Globals.HOST;
 onready var DATABASE = Globals.DATABASE;
 onready var PORT = Globals.PORT;
-
-var _user_id = OS.get_unique_id()
+onready var buttonsTable = $PanelContainer/MainPanel/QueryPanel/NodeButtonTable/ScrollContainer/VBoxContainer;
+onready var buttonsColumn = $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/ScrollContainer/VBoxContainer;
+onready var nodeButtonsColumn = $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn;
+onready var nodeButtonsTable = $PanelContainer/MainPanel/QueryPanel/NodeButtonTable
+var tableName = ''; # table selected
+	
 var _error = "";
 var choice = "";
 
@@ -18,15 +22,19 @@ func _init() -> void:
 	_error = database.connect("connection_closed", self, "_close")
 
 func _ready():
-	pass
+	choice = "table";
+	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);
+	
 func _physics_process(_delta: float) -> void:
-	var buttonsTable = $PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel;
-	var buttonsColumn = $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel;
 	for btn in buttonsTable.get_children():
 		if btn.pressed:
-			$PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text = str(btn.text);
+			if tableName == str(btn.text):
+				continue;
+			tableName = str(btn.text);
 			$PanelContainer/MainPanel/QueryPanel/PanelRenameColumn/InputRenameColumn.text = str(btn.text);
 			$PanelContainer/MainPanel/QueryPanel/PanelRenameTable/InputRenameTable.text = str(btn.text);
+			showColumns();
+			printButtonsColumn();
 	for btn in buttonsColumn.get_children():
 		if btn.pressed:
 			var btnColumn = $PanelContainer/MainPanel/QueryPanel/PanelRenameColumn/InputRenameColumn;
@@ -74,26 +82,19 @@ func reIndexPK():
 	var execTable = executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema', 'pg_catalog') AND table_type = 'BASE TABLE' ORDER BY table_name;");
 	var res1 = getResult(execTable);
 	for table in res1:
-		var tableName = str('"',res1[table]['table_name'],'"');
-#		var queryColumn = str("SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name   = '", tableName, "' ORDER BY ordinal_position;");
-#		var execColumn = executeQuery(queryColumn);
-#		var res2 = getResult(execColumn);
-#		for column in res2:
-#			var columnName = res2[column]['column_name'];
-#			if columnName == 'id':
-		var queryFirstPK = str("SELECT id FROM ", tableName,  " ORDER BY id ASC LIMIT 1;");
+		var local_tableName = str('"',res1[table]['table_name'],'"');
+		var queryFirstPK = str("SELECT id FROM ", local_tableName,  " ORDER BY id ASC LIMIT 1;");
 		var _execFirstPK = executeQuery(queryFirstPK);
 		var resQueryFirstPK = getResult(_execFirstPK);
-		print(tableName, " = ", resQueryFirstPK);
 		if resQueryFirstPK.size() > 0:
 			var gapId = resQueryFirstPK[0]['id'] -1;
-			var queryUpdatePK = str("UPDATE ", tableName,  " SET id = id-", gapId, ";");
+			var queryUpdatePK = str("UPDATE ", local_tableName,  " SET id = id-", gapId, ";");
 			var _execUpdatePK = executeQuery(queryUpdatePK);
-			var queryFindPK = str("SELECT COUNT(1) FROM information_schema.table_constraints WHERE table_name='", tableName, "' AND constraint_name LIKE '%_pkey';");
+			var queryFindPK = str("SELECT COUNT(1) FROM information_schema.table_constraints WHERE table_name='", local_tableName, "' AND constraint_name LIKE '%_pkey';");
 			var _execFindPK = executeQuery(queryFindPK);
 			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res1[table]['table_name'], " => \n\t", resQueryFirstPK[0]['id'], " => 1\n");
 		else:
-			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(tableName, " => ??\n");
+			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(local_tableName, " => ??\n");
 		
 func showTables():
 	var nameTable = executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema', 'pg_catalog') ORDER BY table_name;");
@@ -104,8 +105,7 @@ func showTables():
 		pass
 
 func showColumns():
-	var nameTable = $PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text;
-	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", nameTable, "' ORDER BY ordinal_position;");
+	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", tableName, "' ORDER BY ordinal_position;");
 	var execColumn = executeQuery(query);
 	var res = getResult(execColumn);
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
@@ -113,46 +113,30 @@ func showColumns():
 		$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res[column]['column_name'], "\n");
 
 func printButtonsColumn():
-	$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.hide();
-	var nameTable = $PanelContainer/MainPanel/QueryPanel/PanelColumn/InputColonne.text;
-	if $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.visible == false:
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.show();
-	else:
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.hide();
-	var baseX = 0;
-	var baseY = 0;
-	var sizeX = 250;
-	var sizeY = 20;
-	var timeOverflowing = 0;
+	if nodeButtonsColumn.visible == false:
+		nodeButtonsColumn.show();
+	var size = Vector2(256, 30);
 	var incrSizeY = 0;
-	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", nameTable, "' ORDER BY ordinal_position;");
+	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", tableName, "' ORDER BY ordinal_position;");
 	var nameColumn = executeQuery(query);
 	var res = getResult(nameColumn);
+	delete_children(buttonsColumn);
 	for id in res:
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(baseX+(timeOverflowing*sizeX), 
-			(baseY-sizeY)+(sizeY*incrSizeY)));
-		btn.set_size(Vector2(sizeX,sizeY));
+			Vector2(size.x, 
+			-size.y+(size.y*incrSizeY)));
 		btn.text = res[id]['column_name'];
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel.add_child(btn);
+		btn.set_size(size);
+		buttonsColumn.add_child(btn);
 		btn.show();
-		if $PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/Panel.get_child_count()%25 == 0:
-			incrSizeY = 0;
-			timeOverflowing += 1;
+		$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/ScrollContainer.get_h_scrollbar().rect_scale.x = 0;
 
 func printButtonsTable():
-	$PanelContainer/MainPanel/QueryPanel/NodeButtonColumn.hide();
-	if $PanelContainer/MainPanel/QueryPanel/NodeButtonTable.visible == false:
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.show();
-	else:
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable.hide();
-	var baseX = 0;
-	var baseY = 0;
-	var sizeX = 170;
-	var sizeY = 20;
-	var timeOverflowing = 0;
+	if nodeButtonsTable.visible == false:
+		nodeButtonsTable.show();
+	var size = Vector2(200, 30);
 	var incrSizeY = 0;
 	var nameTable = executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema', 'pg_catalog') ORDER BY table_name ASC;");
 	var res = getResult(nameTable);
@@ -160,15 +144,18 @@ func printButtonsTable():
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(baseX+(timeOverflowing*sizeX), 
-			(baseY-sizeY)+(sizeY*incrSizeY)));
-		btn.set_size(Vector2(sizeX,sizeY));
+			Vector2(size.x, 
+			-size.y+(size.y*incrSizeY)));
 		btn.text = res[id]['table_name'];
-		$PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel.add_child(btn);
+		btn.set_size(size);
+		buttonsTable.add_child(btn);
 		btn.show();
-		if $PanelContainer/MainPanel/QueryPanel/NodeButtonTable/Panel.get_child_count()%25 == 0:
-			incrSizeY = 0;
-			timeOverflowing += 1;
+	$PanelContainer/MainPanel/QueryPanel/NodeButtonTable/ScrollContainer.get_h_scrollbar().rect_scale.x = 0;
+
+func delete_children(node):
+	for n in node.get_children():
+		node.remove_child(n);
+		n.queue_free();
 
 func renameTable():
 	var input = $PanelContainer/MainPanel/QueryPanel/PanelRenameTable/InputRenameTable.text;
@@ -192,8 +179,8 @@ func reCreateFK():
 	var execTable = executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema', 'pg_catalog') ORDER BY table_name;");
 	var res1 = getResult(execTable);
 	for table in res1:
-		var tableName = res1[table]['table_name'];
-		var queryColumn = str("SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name   = '", tableName, "' ORDER BY column_name;");
+		var local_tableName = res1[table]['table_name'];
+		var queryColumn = str("SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name   = '", local_tableName, "' ORDER BY column_name;");
 		var execColumn = executeQuery(queryColumn);
 		var res2 = getResult(execColumn);
 		for column in res2:
@@ -237,17 +224,6 @@ func getResult(var datas):
 func _on_ButtonCopy_pressed():
 	var txt = $PanelContainer/MainPanel/QueryResult/ResultQuery.text
 	OS.set_clipboard(txt)
-
-func _on_ButtonTables_pressed():
-	choice = "table";
-	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
-
-
-
-func _on_ButtonColumn_pressed():
-	choice = "column";
-	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE]);
-
 
 func _on_ButtonRenameTable_pressed():
 	choice = "renametable";

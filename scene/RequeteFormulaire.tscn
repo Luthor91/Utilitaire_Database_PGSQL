@@ -109,13 +109,23 @@ margin_top = 0.0639992
 margin_right = -0.23201
 text = "Ordre"
 
-[node name="ButtonReload" type="Button" parent="PanelContainer/MainPanel/QueryForm"]
+[node name="ButtonInput" type="Button" parent="PanelContainer/MainPanel/QueryForm"]
+anchor_left = 0.328
+anchor_top = 0.312
+anchor_right = 0.475
+anchor_bottom = 0.5
+margin_left = -0.0640106
+margin_top = 0.0639992
+margin_right = 1.19998
+text = "Values"
+
+[node name="ButtonVerbose" type="CheckBox" parent="PanelContainer/MainPanel/QueryForm"]
 anchor_top = 0.812
 anchor_right = 0.148
 anchor_bottom = 1.0
 margin_top = 0.0639954
 margin_right = -0.223999
-text = "Reload"
+text = "Verbose"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainPanel"]
 margin_left = 249.0
@@ -429,6 +439,40 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 240, 30 )
 readonly = true
 
+[node name="Input" type="Control" parent="PanelContainer/MainPanel/ScrollContainer/PanelBtn"]
+visible = false
+margin_right = 256.0
+margin_bottom = 320.0
+rect_min_size = Vector2( 256, 320 )
+rect_clip_content = true
+
+[node name="InputValue" type="LineEdit" parent="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input"]
+anchor_top = 0.175
+anchor_right = 0.969
+anchor_bottom = 0.275
+margin_right = -0.0640106
+placeholder_text = "val1,val2,val3,val4"
+
+[node name="ScrollColumns" type="ScrollContainer" parent="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input"]
+visible = false
+anchor_top = 0.425
+anchor_right = 0.969
+anchor_bottom = 1.0
+margin_right = -0.0640106
+rect_min_size = Vector2( 248, 184 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns"]
+margin_right = 248.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 248, 184 )
+
+[node name="ColumnType" type="TextEdit" parent="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns/VBoxContainer"]
+margin_right = 248.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 240, 30 )
+readonly = true
+
 [node name="QueryPanel" type="Panel" parent="PanelContainer/MainPanel"]
 anchor_left = 0.009
 anchor_top = 0.357
@@ -588,10 +632,10 @@ anchor_left = 0.017
 anchor_top = 0.1
 anchor_right = 0.853
 anchor_bottom = 0.185
-margin_left = 0.00999832
-margin_top = 0.900002
-margin_right = 1.08997
-margin_bottom = 0.015007
+margin_left = 0.00999975
+margin_top = 0.799999
+margin_right = 1.09
+margin_bottom = -7.32
 readonly = true
 
 [node name="ButtonQuery" type="Button" parent="PanelContainer/MainPanel/Historic"]
@@ -685,7 +729,8 @@ script = ExtResource( 5 )
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryForm/ButtonCondition" to="." method="_on_ButtonCondition_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryForm/ButtonLimites" to="." method="_on_ButtonLimites_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryForm/ButtonOrder" to="." method="_on_ButtonOrder_pressed"]
-[connection signal="pressed" from="PanelContainer/MainPanel/QueryForm/ButtonReload" to="." method="_on_ButtonReload_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/QueryForm/ButtonInput" to="." method="_on_ButtonInput_pressed"]
+[connection signal="toggled" from="PanelContainer/MainPanel/QueryForm/ButtonVerbose" to="." method="_on_ButtonVerbose_toggled"]
 [connection signal="item_selected" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/JointureSelect" to="." method="_on_JointureSelect_item_selected"]
 [connection signal="focus_entered" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/firstKey" to="." method="_on_firstKey_focus_entered"]
 [connection signal="focus_entered" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/secondKey" to="." method="_on_secondKey_focus_entered"]
@@ -698,6 +743,8 @@ script = ExtResource( 5 )
 [connection signal="focus_entered" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/orderColumn" to="." method="_on_orderColumn_focus_entered"]
 [connection signal="item_selected" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/OrdreSelect" to="." method="_on_OrdreSelect_item_selected"]
 [connection signal="focus_exited" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/ScrollColumns/VBoxContainer/Columns" to="." method="_on_Columns_focus_exited"]
+[connection signal="focus_entered" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/InputValue" to="." method="_on_InputValue_focus_entered"]
+[connection signal="focus_exited" from="PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns/VBoxContainer/ColumnType" to="." method="_on_ColumnType_focus_exited"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonExecuteQuery" to="." method="_on_ButtonExecuteQuery_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonClearUsedQuery" to="." method="_on_ButtonClearUsedQuery_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/ButtonCalcQuery" to="." method="_on_ButtonCalcQuery_pressed"]

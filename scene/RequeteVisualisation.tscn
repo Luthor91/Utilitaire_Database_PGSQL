@@ -1,0 +1,458 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scene/Menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/RequeteVisualisation.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Color_MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://scene/ButtonExit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/PanelContainer.gd" type="Script" id=5]
+
+[node name="RequeteVisualisation" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 5 )
+
+[node name="MainPanel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 593.0
+script = ExtResource( 3 )
+
+[node name="PanelMenu" parent="PanelContainer/MainPanel" instance=ExtResource( 1 )]
+anchor_left = 0.001
+anchor_top = 0.002
+anchor_right = 1.0
+anchor_bottom = 0.056
+margin_left = -0.00999999
+margin_top = -0.172
+margin_right = -1.0
+margin_bottom = 0.183998
+
+[node name="ButtonExit" parent="PanelContainer/MainPanel" instance=ExtResource( 4 )]
+
+[node name="LabelTitre" type="Label" parent="PanelContainer/MainPanel"]
+anchor_left = 0.056
+anchor_top = 0.097
+anchor_right = 0.437
+anchor_bottom = 0.206
+margin_left = 0.439999
+margin_top = 0.157997
+margin_right = -0.369995
+margin_bottom = -31.716
+text = "Data visualisation"
+align = 1
+valign = 1
+
+[node name="Resultats" type="Panel" parent="PanelContainer/MainPanel"]
+margin_left = 505.0
+margin_top = 57.0
+margin_right = 1009.0
+margin_bottom = 121.0
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/MainPanel/Resultats"]
+margin_left = 8.0
+margin_right = 496.0
+margin_bottom = 520.0
+drag_to_rearrange_enabled = true
+
+[node name="Inputs" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_left = 0.001
+anchor_top = 0.152
+anchor_right = 0.5
+anchor_bottom = 0.698
+margin_left = -0.00999999
+margin_top = -0.0719986
+margin_bottom = -0.0280151
+
+[node name="NameUser" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_right = 0.984
+anchor_bottom = 0.5
+margin_right = 0.0639954
+margin_bottom = -40.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/NameUser"]
+anchor_left = 0.031
+anchor_top = 0.154
+anchor_right = 0.317
+anchor_bottom = 0.4
+margin_left = 0.375999
+margin_top = -0.640003
+margin_right = 0.231995
+rect_rotation = 0.230597
+text = "Requête SQL ou JSON"
+align = 1
+valign = 1
+
+[node name="InputData" type="TextEdit" parent="PanelContainer/MainPanel/Inputs/NameUser"]
+anchor_left = 0.333
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_left = -0.167999
+rect_pivot_offset = Vector2( 350, 103 )
+
+[node name="NameUser2" type="Panel" parent="PanelContainer/MainPanel/Inputs"]
+anchor_right = 0.984
+anchor_bottom = 0.5
+margin_top = 160.0
+margin_right = 0.0639954
+margin_bottom = 128.0
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/Inputs/NameUser2"]
+anchor_left = 0.031
+anchor_top = 0.154
+anchor_right = 0.317
+anchor_bottom = 0.4
+margin_left = 0.375999
+margin_top = -0.640003
+margin_right = 0.231995
+rect_rotation = 0.230597
+text = "Choix d'onglets :"
+align = 1
+valign = 1
+
+[node name="Onglet" type="ScrollContainer" parent="PanelContainer/MainPanel/Inputs/NameUser2"]
+margin_left = 184.0
+margin_right = 440.0
+margin_bottom = 128.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainPanel/Inputs/NameUser2/Onglet"]
+
+[node name="SettingGraph" type="Panel" parent="PanelContainer/MainPanel"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 1.0
+margin_top = 0.175995
+margin_right = 1.0
+margin_bottom = 0.171997
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -0.0799999
+margin_right = 4.23501
+margin_bottom = 3.392
+text = "Réglage graphique :"
+align = 1
+valign = 1
+
+[node name="nbValX" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 8.0
+margin_top = -93.856
+margin_right = -84.5
+margin_bottom = -127.632
+
+[node name="LabelX" type="Label" parent="PanelContainer/MainPanel/SettingGraph/nbValX"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.56
+margin_right = 39.52
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Nb Val X :"
+align = 1
+valign = 1
+
+[node name="inputX" type="TextEdit" parent="PanelContainer/MainPanel/SettingGraph/nbValX"]
+anchor_left = 0.067
+anchor_top = 1.353
+anchor_right = 3.6
+anchor_bottom = 8.5
+margin_left = 76.28
+margin_top = -32.472
+margin_right = -416.0
+margin_bottom = -180.0
+
+[node name="nbValY" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 8.0
+margin_top = -61.856
+margin_right = -84.5
+margin_bottom = -95.632
+
+[node name="LabelY" type="Label" parent="PanelContainer/MainPanel/SettingGraph/nbValY"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.56
+margin_right = 39.52
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Nb Val Y :"
+align = 1
+valign = 1
+
+[node name="inputY" type="TextEdit" parent="PanelContainer/MainPanel/SettingGraph/nbValY"]
+anchor_left = 0.067
+anchor_top = 1.353
+anchor_right = 3.6
+anchor_bottom = 8.5
+margin_left = 76.28
+margin_top = -32.472
+margin_right = -416.0
+margin_bottom = -180.0
+
+[node name="nbVals" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 8.0
+margin_top = -29.856
+margin_right = -84.5
+margin_bottom = -63.632
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/SettingGraph/nbVals"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.56
+margin_right = 39.52
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Nb points :"
+align = 1
+valign = 1
+
+[node name="input" type="TextEdit" parent="PanelContainer/MainPanel/SettingGraph/nbVals"]
+anchor_left = 0.067
+anchor_top = 1.353
+anchor_right = 3.6
+anchor_bottom = 8.5
+margin_left = 76.28
+margin_top = -32.472
+margin_right = -416.0
+margin_bottom = -180.0
+
+[node name="nbOffset" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 8.0
+margin_top = 2.144
+margin_right = -84.5
+margin_bottom = -31.632
+
+[node name="Label" type="Label" parent="PanelContainer/MainPanel/SettingGraph/nbOffset"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.56
+margin_right = 39.52
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Offset :"
+align = 1
+valign = 1
+
+[node name="input" type="TextEdit" parent="PanelContainer/MainPanel/SettingGraph/nbOffset"]
+anchor_left = 0.067
+anchor_top = 1.353
+anchor_right = 3.6
+anchor_bottom = 8.5
+margin_left = 76.28
+margin_top = -32.472
+margin_right = -416.0
+margin_bottom = -180.0
+
+[node name="typeFunction" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 184.0
+margin_top = -93.856
+margin_right = 123.5
+margin_bottom = -127.632
+
+[node name="LabelType" type="Label" parent="PanelContainer/MainPanel/SettingGraph/typeFunction"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.072
+margin_right = 31.424
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Fct (WIP) :"
+align = 1
+valign = 1
+
+[node name="TypeFunction" type="OptionButton" parent="PanelContainer/MainPanel/SettingGraph/typeFunction"]
+anchor_left = 0.062
+anchor_top = 0.05
+anchor_right = 0.687
+anchor_bottom = 0.15
+margin_left = 76.096
+margin_top = -0.2
+margin_right = 60.096
+margin_bottom = 20.4
+text = "Type"
+align = 1
+icon_align = 1
+
+[node name="PopupMenu2" type="PopupMenu" parent="PanelContainer/MainPanel/SettingGraph/typeFunction/TypeFunction"]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="typeChart" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 184.0
+margin_top = -61.856
+margin_right = 123.5
+margin_bottom = -95.632
+
+[node name="LabelType" type="Label" parent="PanelContainer/MainPanel/SettingGraph/typeChart"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.072
+margin_right = 31.424
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Graphique :"
+align = 1
+valign = 1
+
+[node name="TypeChart" type="OptionButton" parent="PanelContainer/MainPanel/SettingGraph/typeChart"]
+anchor_left = 0.062
+anchor_top = 0.05
+anchor_right = 0.687
+anchor_bottom = 0.15
+margin_left = 76.096
+margin_top = -0.2
+margin_right = 60.096
+margin_bottom = 20.4
+text = "Graph"
+align = 1
+icon_align = 1
+
+[node name="PopupMenu2" type="PopupMenu" parent="PanelContainer/MainPanel/SettingGraph/typeChart/TypeChart"]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="typeMarker" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_top = 0.684
+anchor_right = 0.5
+anchor_bottom = 0.998
+margin_left = 184.0
+margin_top = -29.856
+margin_right = 123.5
+margin_bottom = -63.632
+
+[node name="LabelType" type="Label" parent="PanelContainer/MainPanel/SettingGraph/typeMarker"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.072
+margin_right = 31.424
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Marqueur :"
+align = 1
+valign = 1
+
+[node name="TypeMarker" type="OptionButton" parent="PanelContainer/MainPanel/SettingGraph/typeMarker"]
+anchor_left = 0.062
+anchor_top = 0.05
+anchor_right = 0.687
+anchor_bottom = 0.15
+margin_left = 76.096
+margin_top = -1.2
+margin_right = 60.096
+margin_bottom = 20.4
+text = "Marqueurs"
+align = 1
+icon_align = 1
+
+[node name="PopupMenu2" type="PopupMenu" parent="PanelContainer/MainPanel/SettingGraph/typeMarker/TypeMarker"]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="typeZoom" type="Panel" parent="PanelContainer/MainPanel/SettingGraph"]
+anchor_left = 0.364
+anchor_top = 0.696
+anchor_right = 0.713
+anchor_bottom = 0.826
+margin_left = 0.179993
+margin_top = -0.0640106
+margin_right = -0.065033
+margin_bottom = 0.0159912
+
+[node name="LabelType" type="Label" parent="PanelContainer/MainPanel/SettingGraph/typeZoom"]
+anchor_left = 0.016
+anchor_right = 0.253
+anchor_bottom = 0.112
+margin_left = -3.072
+margin_right = 31.424
+margin_bottom = 21.312
+rect_pivot_offset = Vector2( -80, 15.968 )
+text = "Zoom :"
+align = 1
+valign = 1
+
+[node name="CheckBox" type="CheckBox" parent="PanelContainer/MainPanel/SettingGraph/typeZoom"]
+margin_left = 88.0
+margin_right = 192.0
+margin_bottom = 24.0
+text = "Zoom"
+
+[node name="PageHandler" type="Panel" parent="PanelContainer/MainPanel"]
+margin_left = 385.0
+margin_top = 433.0
+margin_right = 497.0
+margin_bottom = 457.0
+
+[node name="ButtonLast" type="Button" parent="PanelContainer/MainPanel/PageHandler"]
+margin_left = 8.0
+margin_right = 40.0
+margin_bottom = 24.0
+text = "<="
+
+[node name="ButtonNext" type="Button" parent="PanelContainer/MainPanel/PageHandler"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 24.0
+text = "=>"
+
+[node name="ButtonCalc" type="Button" parent="PanelContainer/MainPanel"]
+margin_left = 49.0
+margin_top = 313.0
+margin_right = 129.0
+margin_bottom = 345.0
+text = "Calc"
+
+[node name="ButtonExec" type="Button" parent="PanelContainer/MainPanel"]
+margin_left = 297.0
+margin_top = 193.0
+margin_right = 425.0
+margin_bottom = 225.0
+shortcut_in_tooltip = false
+text = "Créer onglet"
+
+[node name="ButtonEmpty" type="Button" parent="PanelContainer/MainPanel"]
+anchor_left = 0.207
+anchor_top = 0.439
+anchor_right = 0.262
+anchor_bottom = 0.48
+margin_left = 223.93
+margin_top = -64.254
+margin_right = 224.38
+margin_bottom = -64.28
+text = "Clear"
+
+[connection signal="pressed" from="PanelContainer/MainPanel/PageHandler/ButtonLast" to="." method="_on_ButtonLast_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/PageHandler/ButtonNext" to="." method="_on_ButtonNext_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ButtonCalc" to="." method="_on_ButtonCalc_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ButtonExec" to="." method="_on_ButtonExec_pressed"]
+[connection signal="pressed" from="PanelContainer/MainPanel/ButtonEmpty" to="." method="_on_ButtonEmpty_pressed"]

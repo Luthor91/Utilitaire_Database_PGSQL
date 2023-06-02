@@ -2,7 +2,6 @@ extends Node2D
 
 var database := PostgreSQLClient.new();
 var niceJson = JSONBeautifier.new();
-
 onready var USER = Globals.USER;
 onready var PASSWORD = Globals.PASSWORD;
 onready var HOST = Globals.HOST;
@@ -15,7 +14,6 @@ var nbTotalRow = 0;
 var nbLimitPrintable = 100; # Nombre de ligne affichable maximale en résultat d'une requête
 var nbPageQuery = 1;
 var maxPage = 0;
-
 
 var _user_id = OS.get_unique_id()
 var _error = "";
@@ -57,8 +55,8 @@ func _query():
 		nbTotalRow = getMaxRowCount(tableName);
 	var exec = executeQuery(input); #21ms
 	var result = getResult(exec); # 7ms
-	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', ' ');
-	$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = resPrinted;
+	var resPrinted = niceJson.beautify_json(to_json(result), 2);
+	$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = resPrinted.replace('"', '').replace('\\', '');
 	nbRow = result.size()
 	if (nbRow == nbLimitPrintable) && (nbTotalRow > nbLimitPrintable):
 		maxPage = ceil(nbTotalRow/nbLimitPrintable);
@@ -71,7 +69,7 @@ func _query():
 	var time_now = OS.get_ticks_usec();
 	var time_elapsed = time_now - time_start;
 	if resPrinted == '{}':
-		$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = niceJson.beautify_json(to_json(database.error_object), 2).replace('"', ' ');
+		$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = niceJson.beautify_json(to_json(database.error_object), 2).replace('"', '');
 		$PanelContainer/MainPanel/TrueResultPanel/TrueResultQuery.text = to_json(database.error_object);
 	else:
 		$PanelContainer/MainPanel/Historic/AllQuery.text += "\t" + str(inputPrinted).replace("\n", " ") + "   t=" + str(time_elapsed/1000) + "ms\n\n";
@@ -86,9 +84,6 @@ func executeQuery(var _query):
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
 
-func _exit_tree() -> void:
-	database.close()
-
 func getResult(var datas):
 	var dictResult = {}; 
 	var index = 0;
@@ -99,7 +94,7 @@ func getResult(var datas):
 			for value in row: # List each data row
 				if typeof(value) == TYPE_RAW_ARRAY :
 					value = value.get_string_from_utf8();
-				var columnName = data.row_description[numberOfColumn]["field_name"];
+				var columnName = str(data.row_description[numberOfColumn]["field_name"]);
 				tempDictionnary.merge({columnName:value}, true);
 				numberOfColumn += 1;
 			dictResult.merge({index:tempDictionnary}, true);
@@ -142,6 +137,7 @@ func pageQueryHandler():
 		getMaxLimit = nbTotalRow;
 		getLimit = ceil(getMaxLimit/maxPage);
 		query = str(query.substr(0, query.length()-2), '" LIMIT ', getLimit, " OFFSET ",  getLimit*nbPageQuery-getLimit,";");
+	print(query);
 	var exec = executeQuery(query);
 	var result = getResult(exec);
 	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', ' ');

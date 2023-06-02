@@ -2,7 +2,8 @@ extends MenuButton
 
 enum Options {
 	QUERY_WRITTEN,
-	QUERY_FORM
+	QUERY_FORM,
+	QUERY_RES
 }
 
 func _ready():
@@ -11,8 +12,7 @@ func _ready():
 	var popup = mb.get_popup()
 	popup.add_item("Requêtes Ecrites", Options.QUERY_WRITTEN)
 	popup.add_item("Requêtes Formulaire", Options.QUERY_FORM)
-	
-	# Connect the id pressed signal to the function which will handle the option logic
+	popup.add_item("Data Visualisation", Options.QUERY_RES)
 	popup.connect("id_pressed", self, "_item_selected")
 
 func _item_selected(id: int):
@@ -24,3 +24,5 @@ func _item_selected(id: int):
 			_dump = get_tree().change_scene("res://scene/RequeteEcrite.tscn");
 		Options.QUERY_FORM:
 			_dump = get_tree().change_scene("res://scene/RequeteFormulaire.tscn");
+		Options.QUERY_RES:
+			_dump = get_tree().change_scene("res://scene/RequeteVisualisation.tscn");

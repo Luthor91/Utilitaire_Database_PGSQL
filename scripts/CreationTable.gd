@@ -27,8 +27,6 @@ func _authentication_error(error_object: Dictionary) -> void:
 
 func _query():
 	var inputCreateTables = $PanelContainer/MainPanel/QueryPanel/InputQuery.text;
-	var inputCreateDatabase = $PanelContainer/MainPanel/QueryPanel/InputCreateDatabase.text;
-	
 	if choice == 'tables':
 		var json = JSON.parse(inputCreateTables);
 		createAllTable(json.result);
@@ -44,9 +42,6 @@ func executeQuery(var _query):
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
 
-func _exit_tree() -> void:
-	database.close()
-	
 func createAllTable(var tabJson):
 	var queryPrinted = '';
 	for table in tabJson:
@@ -54,21 +49,12 @@ func createAllTable(var tabJson):
 		var queryTablePrinted = '';
 		for index in tabJson[table]:
 			for column in tabJson[table][index]:
-				var nomColonne = '';
-				var typeColonne = '';
 				queryTable = str(queryTable, ' ', tabJson[table][index][column]);
 				queryTablePrinted = str(queryTablePrinted, ' ', tabJson[table][index][column]);
-				
 				if column == 'type':
-					typeColonne = tabJson[table][index]['type'];
 					queryTable = str(queryTable, ',');
 					queryTablePrinted = str(queryTablePrinted, ',\n');
-				if column == 'nom':
-					nomColonne = tabJson[table][index]['nom'];
-				if 'FK_' in nomColonne:
-					typeColonne = 'INT';
 		queryTable.erase(queryTable.length()-1, 1);
-#		queryPrinted = str('CREATE TABLE IF NOT EXISTS "', table, '"(\n', queryPrinted, ');\n\n');
 		var query = str('CREATE TABLE IF NOT EXISTS "', table, '" (', queryTable, ');');
 		queryPrinted = str(queryPrinted, 'CREATE TABLE IF NOT EXISTS "', table, '" (\n', queryTablePrinted, ');', '\n\n');
 		executeQuery(query);
@@ -78,11 +64,9 @@ func _on_ButtonExecute_pressed():
 	choice = 'tables';
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
 
-
 func _on_ButtonCopy_pressed():
 	var txt = $PanelContainer/MainPanel/QueryResult/ResultQuery.text
 	OS.set_clipboard(txt)
-
 
 func _on_ButtonShowJSON_pressed():
 	var labelInfo = $PanelContainer/MainPanel/QueryPanel/LabelInfo;

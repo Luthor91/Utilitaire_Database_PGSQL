@@ -92,7 +92,10 @@ func _ready():
 	popup = mb.get_popup();
 	popup.add_item("ASCENDANT", PopupOrdre.ASC);
 	popup.add_item("DESCENDANT", PopupOrdre.DESC);
-		
+	
+	var buttonsQuery = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/QueryType.get_children();
+	for btn in buttonsQuery:
+		_error = btn.connect("pressed", self, "_on_ButtonMainTypeQuery_pressed", [btn]);
 	_error = database.connect_to_host("postgresql://%s:%s@%s:%d/%s" % [USER, PASSWORD, HOST, PORT, DATABASE])
 
 ############################################
@@ -100,57 +103,13 @@ func _ready():
 #
 
 func _physics_process(_delta: float) -> void:
-	var buttonsQuery = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/QueryType;
-	var buttonsTable = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Tables/ScrollContainer/ControlTable;
-	var buttonsColumn = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Columns/ScrollContainer/ControlColumn;
 	var buttonsCondition = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition;
 	var buttonsJointure = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure;
 	var buttonsLimites = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites;
 	var buttonsOrdre = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre;
-	var output = $PanelContainer/MainPanel/QueryPanel/UsedQuery;
+	var _output = $PanelContainer/MainPanel/QueryPanel/UsedQuery;
 	var input1 = '';
 	var input2 = '';
-	
-	for btn in buttonsQuery.get_children():
-		if btn.pressed:
-			if output.text.ends_with(';'):
-				output.text = '';
-			argsQuery[0] = btn.text;
-			if output.text.empty():
-				output.text = str('Main type : ', btn.text, '\n');
-			elif output.text.find(btn.text) == -1:
-				if output.text.find('Main type : ') != -1:
-					output.text += str('Type : ', btn.text, '\n');
-				else:
-					output.text += str('Main type : ', btn.text, '\n');
-	for btn in buttonsTable.get_children():
-		if btn.pressed:
-			if output.text.ends_with(';'):
-				output.text = '';
-			argsQuery[1] = str('"', btn.text, '"');
-			if output.text.empty():
-				output.text = str('Main table : ', btn.text, '\n');
-				allTables.append(btn.text);
-			elif output.text.find(btn.text) == -1:
-				if output.text.find('Main table : ') != -1:
-					output.text += str('Table : ', btn.text, '\n');
-					allTables.append(btn.text);
-				else:
-					output.text += str('Main table : ', btn.text, '\n');
-					allTables.append(btn.text);
-			tableName = btn.text;
-	for btn in buttonsColumn.get_children():
-		if btn.pressed:
-			if output.text.ends_with(';'):
-				output.text = '';
-			argsQuery[2] = str('"', btn.text, '"');
-			if output.text.empty():
-				output.text = str('Main column : ', btn.text, '\n');
-			elif output.text.find(btn.text) == -1:
-				if output.text.find('Main column : ') != -1:
-					output.text += str('Column : ', btn.text, '\n');
-				else:
-					output.text += str('Main column : ', btn.text, '\n');
 	for btn in buttonsJointure.get_children():
 		if btn.get_class() == "LineEdit":
 			if btn.text == '"TableName"."Column"':
@@ -167,7 +126,8 @@ func _physics_process(_delta: float) -> void:
 				&& input1 != argsQuery[7]:
 				input1 = str('"', input1.split('.')[0], '"."', input1.split('.')[1], '"');
 				if '_' in input1:
-					input2 = str('"', input1.split('.')[1].split('_')[1], '"."id"');
+					input2 = str('"', input1.split('.')[1].split('_')[2], '."id"');
+					getDictColumnsOf(input1.split('.')[1].split('_')[2]);
 				elif 'id' in input1:
 					input2 = str(''); 
 				else:
@@ -178,7 +138,8 @@ func _physics_process(_delta: float) -> void:
 				&& "." in input1 \
 				&& input2 != argsQuery[8]:
 				if '_' in input2:
-					input2 = str(input1.split('.')[1].split('_')[1], '.id');
+					input2 = str(input1.split('.')[1].split('_')[2], '.id');
+					getDictColumnsOf(input1.split('.')[1].split('_')[2]);
 				elif 'id' in input1:
 					input2 = str(''); 
 				else:
@@ -190,6 +151,7 @@ func _physics_process(_delta: float) -> void:
 	for btn in buttonsCondition.get_children():
 		if btn.get_class() == "LineEdit":
 			input1 = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/firstColumn.text;
+			input2 = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/secondColumn.text;
 			var regex = RegEx.new()
 			regex.compile('(\\w+\\.\\w+)');
 			if regex.search(input1) \
@@ -216,6 +178,7 @@ func _physics_process(_delta: float) -> void:
 				input1 = str('"', input1.split('.')[0], '"."', input1.split('.')[1], '"');
 				$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/orderColumn.text = input1;
 			argsQuery[11] = input1;
+	reloadTableColumn();
 	database.poll();
 
 ############################################
@@ -260,8 +223,8 @@ func queryHandler(var input):
 		nbTotalRow = getMaxRowCount(tableName);
 	var exec = executeQuery(input); #21ms
 	var result = getResult(exec); # 7ms
-	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', ' ');
-	$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = resPrinted;
+	var resPrinted = niceJson.beautify_json(to_json(result), 2);
+	$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = resPrinted.replace('"', '').replace('\\', '');
 	nbRow = result.size()
 	if (nbRow == nbLimitPrintable) && (nbTotalRow > nbLimitPrintable):
 		maxPage = ceil(nbTotalRow/nbLimitPrintable);
@@ -308,23 +271,26 @@ func printButtonsColumn():
 	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", tableName, "' ORDER BY column_name DESC;");
 	var nameColumns = executeQuery(query);
 	var res = getResult(nameColumns);
-	var btnAllAlreadyDefined = false;
+	var btnEventAlreadyDefined = false;
 	for btn in node.get_children():
 		if btn.text == '*':
-			btnAllAlreadyDefined = true;
-	if btnAllAlreadyDefined == false:
+			btnEventAlreadyDefined = true;
+	if btnEventAlreadyDefined == false:
 		var btn = Button.new();
 		btn.set_position(
 			Vector2(0, 
 			sizeY*incrSizeY));
 		btn.rect_min_size = Vector2(sizeX,sizeY);
 		btn.text = '*';
+		btn.connect("pressed", self, "_on_ButtonMainColumn_pressed", [btn]);
 		node.add_child(btn);
 		btn.show();
 		incrSizeY += 1;
 	for id in res:
 		if arrTablesColumns.find(res[id]['column_name']) == -1:
 			arrTablesColumns.append(res[id]['column_name']);
+		else:
+			continue;
 		var btn = Button.new();
 		btn.set_position(
 			Vector2(0, 
@@ -332,11 +298,12 @@ func printButtonsColumn():
 		btn.rect_min_size = Vector2(sizeX,sizeY);
 		btn.text = res[id]['column_name'];
 		temps_arrColumns.append(res[id]['column_name']);
+		btn.connect("pressed", self, "_on_ButtonMainColumn_pressed", [btn]);
 		node.add_child(btn);
 		btn.show();
 		incrSizeY += 1;
 	allColumnsOfTable.merge({tableName:temps_arrColumns}, true);
-	allColumnsOfTable['length'] = temps_arrColumns.size();
+	allColumnsOfTable['length'] = allColumnsOfTable[tableName].size();
 	node.rect_min_size = Vector2(264,sizeY*node.get_child_count());
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Columns/ScrollContainer.get_h_scrollbar().rect_scale.x = 0;
 
@@ -356,6 +323,7 @@ func printButtonsTable():
 			sizeY*incrSizeY));
 		btn.rect_min_size = Vector2(sizeX,sizeY);
 		btn.text = res[id]['table_name'];
+		btn.connect("pressed", self, "_on_ButtonMainTable_pressed", [btn]);
 		node.add_child(btn);
 		btn.show();
 		incrSizeY += 1;
@@ -367,7 +335,6 @@ func printButtonsTable():
 #
 
 func getDictColumnsOf(var local_tableName, var arrOutput = {}):
-#	here
 	var query = str("SELECT column_name FROM information_schema.columns WHERE table_name = '", local_tableName, "' ORDER BY ordinal_position;");
 	var execColumn = executeQuery(query);
 	var res = getResult(execColumn);
@@ -387,8 +354,6 @@ func getArrColumnsOf(var tablename, var arrOutput = []):
 	for column in res:
 		if arrOutput[tablename].find(res[column]['column_name']) == -1:
 			arrOutput[tablename].append(res[column]['column_name'])
-			print(res[column]['column_name']);
-	print(arrOutput[tablename]);
 	return arrOutput[tablename];
 
 func getAllColumnsFromTablesAndPrint(var controlNode):
@@ -430,6 +395,19 @@ func getOnlyKeysFromTablesAndPrint():
 	label.rect_min_size = Vector2(248,184);
 	label.text = niceJson.beautify_json(to_json(dict),2).replace('"', ' ');
 
+func getColumnTypeAndPrint(var local_tableName):
+	tableName = tableName.replace('"', "");
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns.show();
+	var label: Node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns/VBoxContainer/ColumnType;
+	var query: String = str("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '", local_tableName, "';");
+	var exec = executeQuery(query);
+	var res = getResult(exec);
+	var output: String = '';
+	for index in res:
+		output += str(res[index]['column_name'], ' : ',  res[index]['data_type'], '\n\n');
+	label.rect_min_size = Vector2(248,184);
+	label.text = output;
+
 func getResult(var datas):
 	var dictResult = {}; 
 	var index = 0;
@@ -440,8 +418,8 @@ func getResult(var datas):
 			for value in row: # List each data row
 				if typeof(value) == TYPE_RAW_ARRAY :
 					value = value.get_string_from_utf8();
-				var column = data.row_description[numberOfColumn]["field_name"];
-				tempDictionnary.merge({column:value}, true);
+				var columnName = str(data.row_description[numberOfColumn]["field_name"]);
+				tempDictionnary.merge({columnName:value}, true);
 				numberOfColumn += 1;
 			dictResult.merge({index:tempDictionnary}, true);
 			index += 1;
@@ -489,7 +467,7 @@ func pageQueryHandler():
 		query = str(query.substr(0, query.length()-2), ' LIMIT ', getLimit, " OFFSET ",  getLimit*nbPageQuery-getLimit,";");
 	var exec = executeQuery(query);
 	var result = getResult(exec);
-	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', ' ');
+	var resPrinted = niceJson.beautify_json(to_json(result), 2).replace('"', '');
 	$PanelContainer/MainPanel/ResultPanel/ResultQuery.text = resPrinted;
 
 ############################################
@@ -504,6 +482,23 @@ func isNullInArray(var arr):
 		arr[id] = val;
 		id += 1;
 	return arr;
+
+func reloadTableColumn():
+	var inputTables = [];
+	inputTables.resize(5);
+	inputTables[0] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/firstKey.text;
+	inputTables[1] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/secondKey.text;
+	inputTables[2] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/firstColumn.text;
+	inputTables[3] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/secondColumn.text;
+	inputTables[4] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/orderColumn.text;
+	for table in inputTables:
+		if '.' in table:
+			var table1 = table.split('.')[0].replace('"', '');
+			var dictTemp = getDictColumnsOf(table1);
+			if !allColumnsOfTable.has(table1):
+				allColumnsOfTable.merge(dictTemp, true);
+#				allColumnsOfTable[table1] = { allColumnsOfTable[table1].size() : dictTemp };
+
 
 ############################################
 #	Copier le résultat de la requête
@@ -571,6 +566,7 @@ func _on_ButtonQueryType_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/QueryType;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
@@ -585,6 +581,7 @@ func _on_ButtonTable_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Tables;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
@@ -599,6 +596,7 @@ func _on_ButtonColumn_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Columns;
 	printButtonsColumn();
 	node.rect_position = Vector2.ZERO;
@@ -614,6 +612,7 @@ func _on_ButtonCondition_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
@@ -628,6 +627,7 @@ func _on_ButtonJointure_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
@@ -642,6 +642,7 @@ func _on_ButtonLimites_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
@@ -657,26 +658,13 @@ func _on_ButtonOrder_pressed():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input.hide();
 	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre;
 	node.rect_position = Vector2.ZERO;
 	if node.visible == false:
 		node.show();
 	else:
 		node.hide();
-
-func _on_ButtonReload_pressed():
-	var inputTables = [];
-	inputTables.resize(5);
-	inputTables[0] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/firstKey.text;
-	inputTables[1] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/secondKey.text;
-	inputTables[2] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/firstColumn.text;
-	inputTables[3] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/secondColumn.text;
-	inputTables[4] = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/orderColumn.text;
-	for table in inputTables:
-		if '.' in table:
-			var table1 = table.split('.')[0].replace('"', '');
-			var dictTemp = getDictColumnsOf(table1);
-			allColumnsOfTable.merge({table1:dictTemp}, true);
 
 ############################################
 #	Gestion des menus de sélection desconditions, jointure et ordres
@@ -753,14 +741,13 @@ func _on_OrdreSelect_item_selected(index):
 func _on_ButtonCalcQuery_pressed():
 	if !range(argsQuery.size()).has(0):
 		return;
-	var strCond = '';
-	var strJoin = '';
-	var strLimits = '';
-	var strOrder = '';
-	var strPrinted = '';
-	
 	argsQuery = isNullInArray(argsQuery);
-	
+	var strCond: String = '';
+	var strJoin: String = '';
+	var strLimits: String = '';
+	var strOrder: String = '';
+	var strPrinted: String = '';
+	var verbose = argsQuery[-1];
 	var typeQuery = argsQuery[0];
 	var mainTable = argsQuery[1];
 	var mainColumn = argsQuery[2];
@@ -773,35 +760,73 @@ func _on_ButtonCalcQuery_pressed():
 	var limit = argsQuery[9];
 	var offset = argsQuery[10];
 	var order = argsQuery[11];
-	if typeQuery == 'SELECT':
-		strPrinted = str(typeQuery, ' \n', mainTable , '.');
-		if mainColumn == '"*"':
+#	var values = argsQuery[12];
+	var values = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/InputValue.text;
+	match(typeQuery.to_upper()):
+		'SELECT':
+			if !verbose.empty():
+				strPrinted += str(verbose, '\n');
+			strPrinted += str(typeQuery, ' \n', mainTable , '.');
+			if mainColumn == '"*"':
+				mainColumn = str(mainColumn).replace('"', '');
+			strPrinted += str(mainColumn, '\nFROM \n', mainTable);
+			if cond.to_upper() == 'LIKE':
+				secondCond = str("'", secondCond, "'");
+			if !join.empty():
+				strJoin = str(join, ' ', secondKey.split('.')[0],' ON ', firstKey, ' = ', secondKey);
+				strPrinted += str('\n', join, ' ', secondKey.split('.')[0],' ON\n', firstKey, ' = ', secondKey);
+			if !firstCond.empty() and !cond.empty() and !secondCond.empty():
+				strCond = str('WHERE ', firstCond, ' ', cond, ' ', secondCond);
+				strPrinted += str('\n');
+			strPrinted += str(strCond);
+			if !offset.empty():
+				strLimits += str('OFFSET ', offset);
+				strPrinted += str('\nOFFSET ');
+			strPrinted += str(offset);
+			if !limit.empty():
+				strLimits += str(' LIMIT ', limit);
+				strPrinted += str('\nLIMIT ');
+			strPrinted += str(limit);
+			if !order.empty():
+				strOrder += str('ORDER BY ', order);
+				strPrinted += str('\nORDER BY ');
+			strPrinted += str(order);
+			strQuery = str(verbose, typeQuery, ' ', mainTable , '.', mainColumn, 
+				' FROM ', mainTable , ' ', strJoin, ' ', strCond, ' ', strOrder, ' ', strLimits, ';');
+		'INSERT':
+			var vals: Array = values.split(',', true);
 			mainColumn = str(mainColumn).replace('"', '');
-		strPrinted += str(mainColumn, '\nFROM \n', mainTable);
-		if cond == 'LIKE':
-			secondCond = str("'", secondCond, "'");
-		if !join.empty():
-			strJoin = str(join, ' ', secondKey.split('.')[0],' ON ', firstKey, ' = ', secondKey);
-			strPrinted += str('\n', join, ' ', secondKey.split('.')[0],' ON\n', firstKey, ' = ', secondKey);
-		if !firstCond.empty() and !cond.empty() and !secondCond.empty():
-			strCond = str('WHERE ', firstCond, ' ', cond, ' ', secondCond);
-			strPrinted += str('\n');
-		strPrinted += str(strCond);
-		if !offset.empty():
-			strLimits += str('OFFSET ', offset);
-			strPrinted += str('\nOFFSET ');
-		strPrinted += str(offset);
-		if !order.empty():
-			strOrder += str('ORDER BY ', order);
-			strPrinted += str('\nORDER BY ');
-		strPrinted += str(order);
-		if !limit.empty():
-			strLimits += str(' LIMIT ', limit);
-			strPrinted += str('\nLIMIT ');
-		strPrinted += str(limit);
-		strQuery = str(typeQuery, ' ', mainTable , '.', mainColumn, 
-			' FROM ', mainTable , ' ', strJoin, ' ', strCond, ' ', strOrder, ' ', strLimits, ';');
-		$PanelContainer/MainPanel/QueryPanel/UsedQuery.text = strPrinted;
+			var strVal: String = '';
+			for val in vals:
+				if typeof(val) == TYPE_STRING:
+					strVal += str("('", val, "'),");
+				else:
+					strVal += str("(", val, "),");
+			strVal.erase(strVal.length()-1, 1);
+			strPrinted = str(typeQuery, ' INTO ', mainTable, '\n (', mainColumn, ')\nVALUES\n', strVal, ';');
+			strQuery = str(typeQuery, ' INTO ', mainTable , '(', mainColumn, ') VALUES', strVal, ';');
+		'UPDATE':
+			mainColumn = str(mainColumn).replace('"', '');
+			if typeof(values) == TYPE_STRING:
+				values = str("'", values, "'");
+			else:
+				values = str(values);
+			if !firstCond.empty() and !cond.empty() and !secondCond.empty():
+				strCond = str('WHERE ', firstCond, ' ', cond, ' ', secondCond);
+			strPrinted = str(typeQuery, ' ', mainTable, '\n SET ', mainColumn, '=\n', values, '\n', strCond, ';');
+			strQuery = str(typeQuery, ' ', mainTable, ' SET ', mainColumn, '=', values, ' ', strCond, ';');
+		'DELETE':
+			mainColumn = str(mainColumn).replace('"', '');
+			if !firstCond.empty() and !cond.empty() and !secondCond.empty():
+				strCond = str('WHERE ', firstCond, ' ', cond, ' ', secondCond);
+			strPrinted = str(typeQuery, ' FROM ', mainTable, '\n', strCond, ';');
+			strQuery = str(typeQuery, ' FROM ', mainTable, ' ', strCond, ';');
+		'TRUNCATE':
+			strPrinted = str(typeQuery, ' TABLE \n', mainTable,';');
+			strQuery = str(typeQuery, ' TABLE ', mainTable, ';');
+		'_':
+			return;
+	$PanelContainer/MainPanel/QueryPanel/UsedQuery.text = strPrinted;
 
 func _on_ButtonExecuteQuery_pressed():
 	queryHandler(strQuery);
@@ -824,6 +849,9 @@ func _on_secondColumn_focus_entered():
 
 func _on_orderColumn_focus_entered():
 	getAllColumnsFromTablesAndPrint('Ordre');
+	
+func _on_InputValue_focus_entered():
+	getColumnTypeAndPrint(argsQuery[1]);
 
 func _on_ColumnKey_focus_exited():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure/ScrollColumns.hide();
@@ -831,3 +859,76 @@ func _on_ColumnKey_focus_exited():
 func _on_Columns_focus_exited():
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/ScrollColumns.hide();
 	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/ScrollColumns.hide();
+
+
+func _on_ButtonInput_pressed():
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Tables.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Columns.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/QueryType.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Jointure.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Limites.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre.hide();
+	var node = $PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input;
+	node.rect_position = Vector2.ZERO;
+	if node.visible == false:
+		node.show();
+	else:
+		node.hide();
+
+
+func _on_ColumnType_focus_exited():
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Condition/ScrollColumns.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Ordre/ScrollColumns.hide();
+	$PanelContainer/MainPanel/ScrollContainer/PanelBtn/Input/ScrollColumns.hide();
+
+
+func _on_ButtonVerbose_toggled(button_pressed):
+	if button_pressed:
+		argsQuery[-1] = "EXPLAIN ANALYZE ";
+	else:
+		argsQuery[-1] = '';
+
+func _on_ButtonMainTypeQuery_pressed(btn: Button):
+	var output = $PanelContainer/MainPanel/QueryPanel/UsedQuery;
+	if output.text.ends_with(';'):
+		output.text = '';
+	argsQuery[0] = btn.text;
+	if output.text.empty():
+		output.text = str('Main type : ', btn.text, '\n');
+	elif output.text.find(btn.text) == -1:
+		if output.text.find('Main type : ') != -1:
+			output.text += str('Type : ', btn.text, '\n');
+		else:
+			output.text += str('Main type : ', btn.text, '\n');
+
+func _on_ButtonMainColumn_pressed(btn: Button):
+	var output = $PanelContainer/MainPanel/QueryPanel/UsedQuery;
+	if output.text.ends_with(';'):
+		output.text = '';
+	argsQuery[2] = str('"', btn.text, '"');
+	if output.text.empty():
+		output.text = str('Main column : ', btn.text, '\n');
+	elif output.text.find(btn.text) == -1:
+		if output.text.find('Main column : ') != -1:
+			output.text += str('Column : ', btn.text, '\n');
+		else:
+			output.text += str('Main column : ', btn.text, '\n');
+	
+func _on_ButtonMainTable_pressed(btn: Button):
+	var output = $PanelContainer/MainPanel/QueryPanel/UsedQuery;
+	if output.text.ends_with(';'):
+		output.text = '';
+	argsQuery[1] = str('"', btn.text, '"');
+	if output.text.empty():
+		output.text = str('Main table : ', btn.text, '\n');
+		allTables.append(btn.text);
+	elif output.text.find(btn.text) == -1:
+		if output.text.find('Main table : ') != -1:
+			output.text += str('Table : ', btn.text, '\n');
+			allTables.append(btn.text);
+		else:
+			output.text += str('Main table : ', btn.text, '\n');
+			allTables.append(btn.text);
+	tableName = btn.text;
+

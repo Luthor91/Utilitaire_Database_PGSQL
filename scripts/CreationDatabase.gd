@@ -42,9 +42,6 @@ func executeQuery(var _query):
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
 
-func _exit_tree() -> void:
-	database.close()
-
 func createDatabase(var nameDatabase):
 	var query = str('CREATE DATABASE "', nameDatabase, '";');
 	executeQuery(query);

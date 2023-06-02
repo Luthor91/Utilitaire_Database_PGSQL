@@ -314,10 +314,10 @@ __meta__ = {
 anchor_top = 0.004
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 18.144
-margin_right = 20.0
-margin_bottom = 18.0
+margin_left = 32.0
+margin_top = 30.144
+margin_right = 32.0
+margin_bottom = 30.0
 
 [node name="ColorText" type="Panel" parent="Control"]
 visible = false
@@ -336,10 +336,10 @@ __meta__ = {
 [node name="ColorPicker" type="ColorPicker" parent="Control/ColorText"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 20.0
-margin_bottom = 18.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 30.0
 
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonDefaultAccount" to="." method="_on_ButtonDefaultAccount_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/Inputs/ButtonColorText" to="." method="_on_ButtonColorText_pressed"]

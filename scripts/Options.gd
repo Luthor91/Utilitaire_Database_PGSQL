@@ -45,9 +45,6 @@ func _authentication_error(error_object: Dictionary) -> void:
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
 
-func _exit_tree() -> void:
-	database.close()
-
 func _on_Button_pressed():
 	DATABASE = $PanelContainer/MainPanel/Inputs/DefaultAccount/DatabaseName/Input.text;
 	USER = $PanelContainer/MainPanel/Inputs/DefaultAccount/UserName/Input.text;

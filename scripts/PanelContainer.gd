@@ -16,8 +16,5 @@ func _ready():
 
 func _process(_delta):
 	rect_size = OS.window_size;
-#	print(rect_size, ' - ', OS.window_size);
-#	Viewport.size = OS.window_size;
-#	print(OS.window_size, ' - ', Viewport.size);
 	update();
 

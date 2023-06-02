@@ -46,9 +46,6 @@ func executeQuery(var _query):
 
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
-
-func _exit_tree() -> void:
-	database.close()
 	
 func reIndexPK():
 	$PanelContainer/MainPanel/QueryResult/ResultQuery.text = '';
@@ -72,7 +69,7 @@ func reIndexPK():
 			var _execUpdatePK = executeQuery(queryUpdatePK);
 			var queryFindPK = str("SELECT COUNT(1) FROM information_schema.table_constraints WHERE table_name='", tableName, "' AND constraint_name LIKE '%_pkey';");
 			var _execFindPK = executeQuery(queryFindPK);
-			var resQueryFindPK = getResult(_execFindPK);
+			var _resQueryFindPK = getResult(_execFindPK);
 			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(res1[table]['table_name'], " => \n\t", resQueryFirstPK[0]['id'], " => 1\n");
 		else:
 			$PanelContainer/MainPanel/QueryResult/ResultQuery.text += str(tableName, " => ??\n");

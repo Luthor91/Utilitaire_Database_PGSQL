@@ -20,19 +20,26 @@ var _error;
 #	Méthodes d'initialisation de données
 #
 
-
 func _ready():
 	var size = Vector2(250, 30);
 	maxSize = size;
 	var timeOverflowing = 0;
 	var incrSizeY = 0;
+	var file = Globals.rFile("DefaultLogs.txt");
+	var args = file.split(',', 0);
+	if args.empty():
+		args.append('postgres');
+		args.append('postgres');
+		args.append('postgres');
+		args.append('127.0.0.1');
+		args.append(5432);
 	var nodeHistoric = $PanelContainer/MainPanel/TabContainer/TabHistorique/Historic/ScrollHistoric/VBoxContainer;
 	$PanelContainer/MainPanel/LabelInfoConn.text = str("BDD : %s\nUser : %s\nPWD : ***** \nServer : %s\nPort : %d"
-	% [DATABASE, USER, HOST, PORT]);
+	% [args[0], args[1], args[2], int(args[3])]);
 	_error = database.connect("connection_established", self, "_connected");
 	_error = database.connect("authentication_error", self, "_authentication_error");
 	_error = database.connect("connection_closed", self, "_close");
-	var file = Globals.rFile("Databases.txt");
+	file = Globals.rFile("Databases.txt");
 	if file.empty():
 		Globals.wFile('', "Databases.txt");
 		file = '';
@@ -100,12 +107,6 @@ func _connected():
 func _authentication_error(error_object: Dictionary) -> void:
 	prints("Error connection to database:", error_object["message"])
 
-func _close(clean_closure := true) -> void:
-	prints("DB CLOSE,", "Clean closure:", clean_closure);
-
-func _exit_tree() -> void:
-	database.close();
-
 ############################################
 #	Méthodes permettant d'avoir des données
 #
@@ -140,7 +141,7 @@ func _on_Button_pressed():
 		% [USER, PASSWORD, HOST, PORT, DATABASE]);
 	$PanelContainer/MainPanel/Inputs/Error.text = str("Démarrage des services nécessaires\nTemps d'attente estimé :\nentre 2 à 5secondes");
 	$PanelContainer/MainPanel/Inputs/Error.show();
-	$TimerConn.start(2);
+	$TimerConn.start(3);
 	yield($TimerConn, "timeout");
 	var command = str('net start postgresql-x64-', Globals.VERSION);
 	var _res = OS.execute('cmd.exe', ['/c', command], true);
@@ -155,7 +156,7 @@ func _on_ButtonTry_pressed():
 		% [USER, PASSWORD, HOST, PORT, DATABASE]);
 	$PanelContainer/MainPanel/Inputs/Error.text = str("Démarrage des services nécessaires\nTemps d'attente estimé :\nentre 2 à 5 secondes");
 	$PanelContainer/MainPanel/Inputs/Error.show();
-	$TimerConn.start(2);
+	$TimerConn.start(3);
 	yield($TimerConn, "timeout");
 	var command = str('net start postgresql-x64-', Globals.VERSION);
 	var _res = OS.execute('cmd.exe', ['/c', command], true);

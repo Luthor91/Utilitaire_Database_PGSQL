@@ -53,15 +53,6 @@ margin_top = 0.0159998
 margin_right = 0.136993
 margin_bottom = 0.177994
 
-[node name="ButtonTables" type="Button" parent="PanelContainer/MainPanel/QueryPanel/PanelTable"]
-anchor_left = 0.062
-anchor_top = 0.25
-anchor_right = 0.947
-anchor_bottom = 0.75
-margin_left = 0.575999
-margin_right = 0.0559998
-text = "Affichage Tables"
-
 [node name="PanelPK" type="Panel" parent="PanelContainer/MainPanel/QueryPanel"]
 anchor_left = 0.056
 anchor_top = 0.261
@@ -90,44 +81,6 @@ anchor_bottom = 0.75
 margin_left = -0.0560007
 margin_right = 0.0559998
 text = "Reset clé Primaire"
-
-[node name="PanelColumn" type="Panel" parent="PanelContainer/MainPanel/QueryPanel"]
-anchor_left = 0.056
-anchor_top = 0.261
-anchor_right = 0.207
-anchor_bottom = 0.379
-margin_left = 0.496002
-margin_top = -64.201
-margin_right = 0.136993
-margin_bottom = -64.039
-
-[node name="LabelColumn" type="Label" parent="PanelContainer/MainPanel/QueryPanel/PanelColumn"]
-visible = false
-anchor_left = -1.375
-anchor_top = 3.5
-anchor_right = -0.125
-anchor_bottom = 5.5
-margin_left = 225.0
-margin_top = -224.0
-margin_right = 155.0
-margin_bottom = -336.0
-text = "Affichage Colonne"
-align = 1
-valign = 1
-
-[node name="InputColonne" type="TextEdit" parent="PanelContainer/MainPanel/QueryPanel/PanelColumn"]
-anchor_left = -0.263
-anchor_right = 1.684
-anchor_bottom = 0.625
-margin_left = -0.0239983
-margin_right = 0.0319824
-
-[node name="ButtonColumn" type="Button" parent="PanelContainer/MainPanel/QueryPanel/PanelColumn"]
-margin_left = 8.0
-margin_top = 40.0
-margin_right = 141.0
-margin_bottom = 64.0
-text = "Affichage Colonnes"
 
 [node name="PanelFK" type="Panel" parent="PanelContainer/MainPanel/QueryPanel"]
 anchor_left = 0.056
@@ -199,8 +152,8 @@ anchor_top = 0.616
 anchor_right = 0.207
 anchor_bottom = 0.734
 margin_left = 0.496002
-margin_top = -0.256042
-margin_right = 0.136993
+margin_top = -0.256012
+margin_right = 0.137009
 margin_bottom = -0.0940247
 
 [node name="LabelRenameColumn" type="Label" parent="PanelContainer/MainPanel/QueryPanel/PanelRenameColumn"]
@@ -234,30 +187,24 @@ margin_right = -1.52588e-05
 text = "Rename Column"
 
 [node name="NodeButtonTable" type="Control" parent="PanelContainer/MainPanel/QueryPanel"]
-visible = false
-margin_left = -7.0
-margin_top = -7.0
-margin_right = -7.0
-margin_bottom = -7.0
 
-[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonTable"]
-margin_left = 384.0
-margin_top = 20.0
-margin_right = 1016.0
-margin_bottom = 532.0
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonTable"]
+margin_left = 416.0
+margin_top = 84.0
+margin_right = 616.0
+margin_bottom = 468.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonTable/ScrollContainer"]
 
 [node name="NodeButtonColumn" type="Control" parent="PanelContainer/MainPanel/QueryPanel"]
-visible = false
-margin_left = -7.0
-margin_top = -7.0
-margin_right = -7.0
-margin_bottom = -7.0
 
-[node name="Panel" type="Panel" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonColumn"]
-margin_left = 384.0
-margin_top = 20.0
-margin_right = 1016.0
-margin_bottom = 532.0
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonColumn"]
+margin_left = 640.0
+margin_top = 84.0
+margin_right = 896.0
+margin_bottom = 468.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MainPanel/QueryPanel/NodeButtonColumn/ScrollContainer"]
 
 [node name="QueryResult" type="Panel" parent="PanelContainer/MainPanel"]
 visible = false
@@ -304,9 +251,7 @@ margin_bottom = 0.127995
 mouse_default_cursor_shape = 2
 text = "Copy"
 
-[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/PanelTable/ButtonTables" to="." method="_on_ButtonTables_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/PanelPK/ButtonPK" to="." method="_on_ButtonPK_pressed"]
-[connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/PanelColumn/ButtonColumn" to="." method="_on_ButtonColumn_pressed"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/PanelFK/ButtonFK" to="." method="_on_ButtonFK_pressed"]
 [connection signal="focus_entered" from="PanelContainer/MainPanel/QueryPanel/PanelRenameTable/InputRenameTable" to="." method="_on_InputRenameTable_focus_entered"]
 [connection signal="pressed" from="PanelContainer/MainPanel/QueryPanel/PanelRenameTable/ButtonRenameTable" to="." method="_on_ButtonRenameTable_pressed"]

@@ -21,11 +21,12 @@ func _ready():
 
 func _physics_process(_delta: float) -> void:
 	database.poll();
-	var buttonsUser = $PanelContainer/MainPanel/NodeButtonUser/Panel.get_children();
-	var buttonsTable = $PanelContainer/MainPanel/NodeButtonTable/Panel.get_children();
-	var _buttonsSchema = $PanelContainer/MainPanel/NodeButtonSchema/Panel.get_children();
-	var buttonsGrant = $PanelContainer/MainPanel/NodeButtonGrant/Panel.get_children();
-	var buttonsRevoke = $PanelContainer/MainPanel/NodeButtonRevoke/Panel.get_children();
+	var buttonsUser = $PanelContainer/MainPanel/Infos/TabContainer/Users/Panel/ScrollContainer/VBoxContainer.get_children();
+	var buttonsTable = $PanelContainer/MainPanel/Infos/TabContainer/Tables/Panel/ScrollContainer/VBoxContainer.get_children();
+	var _buttonsSchema = $PanelContainer/MainPanel/Infos/TabContainer/Schema/Panel/ScrollContainer/VBoxContainer.get_children();
+	
+	var buttonsGrant = $PanelContainer/MainPanel/Infos/TabContainer/Grant/Panel.get_children();
+	var buttonsRevoke = $PanelContainer/MainPanel/Infos/TabContainer/Revoke/Panel.get_children();
 	for btn in buttonsUser:
 		if btn.pressed:
 			if $PanelContainer/MainPanel/Modifier/NameUser/InputName.text != btn.text:
@@ -52,12 +53,6 @@ func _physics_process(_delta: float) -> void:
 			else:
 				if $PanelContainer/MainPanel/Modifier/Revoke/InputRevoke.text.find(btn.text) == -1:
 					$PanelContainer/MainPanel/Modifier/Revoke/InputRevoke.text += str(', ',btn.text);
-					
-#	for btn in buttonsSchema:
-#		if btn.pressed:
-#			$PanelContainer/MainPanel/Modifier/Schema/InputSchema.text = btn.text;
-
-
 	
 func _authentication_error(error_object: Dictionary) -> void:
 	prints("Error connection to database:", error_object["message"])
@@ -79,56 +74,48 @@ func _isConnected():
 	var res2 = getResult(nameTable);
 	var nameSchema = executeQuery("SELECT DISTINCT table_schema FROM information_schema.tables ORDER BY table_schema ASC");
 	var res3 = getResult(nameSchema);
-	var baseX = 0;
-	var baseY = 0;
-	var sizeX = 140;
-	var sizeY = 20;
-	var timeOverflowing = 0;
+	var sizeX = 150;
+	var sizeY = 30;
 	var incrSizeY = 0;
 	for id in res1:
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(baseX+(timeOverflowing*sizeX), 
-			(baseY-sizeY)+(sizeY*incrSizeY)));
+			Vector2(sizeX, 
+			-sizeY+(sizeY*incrSizeY)));
 		btn.set_size(Vector2(sizeX,sizeY));
 		btn.text = res1[id]['usename'];
-		$PanelContainer/MainPanel/NodeButtonUser/Panel.add_child(btn);
+		$PanelContainer/MainPanel/Infos/TabContainer/Users/Panel/ScrollContainer/VBoxContainer.add_child(btn);
+		
 		btn.show();
-		if $PanelContainer/MainPanel/NodeButtonUser/Panel.get_child_count()%21 == 0:
+		if $PanelContainer/MainPanel/Infos/TabContainer/Users/Panel/ScrollContainer/VBoxContainer.get_child_count()%21 == 0:
 			incrSizeY = 0;
-			timeOverflowing += 1;
-
-	timeOverflowing = 0;
 	incrSizeY = 0;
 	for id in res2:
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(baseX+(timeOverflowing*sizeX), 
-			(baseY-sizeY)+(sizeY*incrSizeY)));
+			Vector2(sizeX, 
+			-sizeY+(sizeY*incrSizeY)));
 		btn.set_size(Vector2(sizeX,sizeY));
 		btn.text = res2[id]['table_name'];
-		$PanelContainer/MainPanel/NodeButtonTable/Panel.add_child(btn);
+		$PanelContainer/MainPanel/Infos/TabContainer/Tables/Panel/ScrollContainer/VBoxContainer.add_child(btn);
 		btn.show();
-		if $PanelContainer/MainPanel/NodeButtonTable/Panel.get_child_count()%21 == 0:
+		if $PanelContainer/MainPanel/Infos/TabContainer/Tables/Panel/ScrollContainer/VBoxContainer.get_child_count()%21 == 0:
 			incrSizeY = 0;
-			timeOverflowing += 1;
-	timeOverflowing = 0;
 	incrSizeY = 0;
 	for id in res3:
 		incrSizeY += 1;
 		var btn = Button.new();
 		btn.set_position(
-			Vector2(baseX+(timeOverflowing*sizeX), 
-			(baseY-sizeY)+(sizeY*incrSizeY)));
+			Vector2(sizeX, 
+			-sizeY+(sizeY*incrSizeY)));
 		btn.set_size(Vector2(sizeX,sizeY));
 		btn.text = res3[id]['table_schema'];
-		$PanelContainer/MainPanel/NodeButtonSchema/Panel.add_child(btn);
+		$PanelContainer/MainPanel/Infos/TabContainer/Schema/Panel/ScrollContainer/VBoxContainer.add_child(btn);
 		btn.show();
-		if $PanelContainer/MainPanel/NodeButtonSchema/Panel.get_child_count()%21 == 0:
+		if $PanelContainer/MainPanel/Infos/TabContainer/Schema/Panel/ScrollContainer/VBoxContainer.get_child_count()%21 == 0:
 			incrSizeY = 0;
-			timeOverflowing += 1;
 
 func getResult(var datas):
 	var dictResult = {}; 
@@ -149,15 +136,12 @@ func getResult(var datas):
 	
 func getResultPrivileges(var datas):
 	var dictResult = {}; 
-	var index = 0;
-	var columnRes = '';
 	for data in datas: # Get result of query
 		var privilege = [];
 		var table = '';
 		for row in data.data_row: # List each data column
 			var numberOfColumn = 0;
 			var tempDictionnary = {};
-			
 			var nbRow = 0;
 			for value in row: # List each data row
 				if typeof(value) == TYPE_RAW_ARRAY :
@@ -174,9 +158,7 @@ func getResultPrivileges(var datas):
 					nbRow +=1;
 				tempDictionnary.merge({nbRow:privilege}, true);
 				numberOfColumn += 1;
-#			dictResult.merge({table:tempDictionnary}, true);
 			dictResult[table] = privilege;
-			index += 1;
 	return dictResult;
 
 func printPrivileges(var dict, var level = 0) -> void:
@@ -286,79 +268,6 @@ func _on_ButtonExec_pressed():
 	if !newName.empty():
 		var _execName = executeQuery(queryName);
 	var _dump = get_tree().change_scene("res://scene/GestionUtilisateur.tscn");
-
-func _on_ButtonUser_pressed():
-	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonUser/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonUser/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-
-func _on_ButtonTable_pressed():
-	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonTable/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonTable/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-
-func _on_ButtonSchema_pressed():
-	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonSchema/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonSchema/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-
-func _on_ButtonPrivileges_pressed():
-	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-
-func _on_ButtonGrant_pressed():
-	$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonGrant/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonGrant/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-
-func _on_ButtonRevoke_pressed():
-	$PanelContainer/MainPanel/NodeButtonTable/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonUser/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonSchema/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonListPrivileges/Panel.hide();
-	$PanelContainer/MainPanel/NodeButtonGrant/Panel.hide();
-
-	if $PanelContainer/MainPanel/NodeButtonRevoke/Panel.visible == false:
-		$PanelContainer/MainPanel/NodeButtonRevoke/Panel.show();
-	else:
-		$PanelContainer/MainPanel/NodeButtonRevoke/Panel.hide();
-
 
 func _on_ButtonEmpty_pressed():
 	$PanelContainer/MainPanel/Modifier/NameUser/InputName.text = '';

@@ -28,14 +28,14 @@ margin_right = 1009.0
 margin_bottom = 585.0
 
 [node name="Infos" type="Label" parent="PanelContainer/MainPanel/Infos"]
-anchor_left = -0.6
+anchor_left = 0.127
 anchor_top = -1.8
 anchor_right = 5.2
-anchor_bottom = -0.2
-margin_left = 406.4
+anchor_bottom = 0.121
+margin_left = -0.00800323
 margin_top = 950.4
-margin_right = -2236.8
-margin_bottom = 169.6
+margin_right = -2300.8
+margin_bottom = 0.112003
 text = "Infos Utilisateurs"
 align = 1
 valign = 1
@@ -175,10 +175,16 @@ margin_right = 313.0
 margin_bottom = 313.0
 text = "Valider"
 
-[node name="NodeButton" type="Control" parent="PanelContainer/MainPanel"]
-margin_left = -7.0
-margin_top = -7.0
-margin_right = -7.0
-margin_bottom = -7.0
+[node name="ListUsers" type="Control" parent="PanelContainer/MainPanel"]
+margin_left = 569.0
+margin_top = 129.0
+margin_right = 569.0
+margin_bottom = 129.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainPanel/ListUsers"]
+margin_right = 256.0
+margin_bottom = 416.0
+
+[node name="NodeButton" type="VBoxContainer" parent="PanelContainer/MainPanel/ListUsers/ScrollContainer"]
 
 [connection signal="pressed" from="PanelContainer/MainPanel/Button" to="." method="_on_Button_pressed"]

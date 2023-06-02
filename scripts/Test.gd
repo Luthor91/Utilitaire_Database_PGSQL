@@ -30,19 +30,13 @@ func _authentication_error(error_object: Dictionary) -> void:
 func _close(clean_closure := true) -> void:
 	prints("DB CLOSE,", "Clean closure:", clean_closure)
 
-func _exit_tree() -> void:
-	database.close()
-
 func _on_Btn1_pressed():
 	OS.alert('test');
-	pass # Replace with function body.
 
 func _on_Btn2_pressed():
-	var output = [];
-	var res = OS.execute('find', ['/s', '/b', 'C:\\pgadmin'], false);
+	var _output = [];
+	var _res = OS.execute('find', ['/s', '/b', 'C:\\pgadmin'], false);
 #	OS.execute("cmd", [''], false);
-	print(output);
-
 
 func _on_Btn3_pressed():
 #	Fonctionne, besoins de droit d'admin
