@@ -20,7 +20,7 @@ Idéalement, lancez le en mode administrateur pour éviter des problèmes au niv
 VIDEO DE PRESENTATION :
 ====================================
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/MO04eJpqQ1U" title="Présentation OpenAdmin" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+https://www.youtube.com/embed/MO04eJpqQ1U
 
 FONCTIONNEMENT :
 ====================================
