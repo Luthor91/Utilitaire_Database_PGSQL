@@ -20,7 +20,7 @@ Idéalement, lancez le en mode administrateur pour éviter des problèmes au niv
 VIDEO DE PRESENTATION :
 ====================================
 
-https://www.youtube.com/embed/MO04eJpqQ1U
+////
 
 FONCTIONNEMENT :
 ====================================
